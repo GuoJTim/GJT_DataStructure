@@ -35,7 +35,7 @@ Polynomial Polynomial::operator+(Polynomial &b){
 	Polynomial c;
 	while(ai != poly.end() && bi != b.poly.end()){
 		if (ai->exp == bi->exp){
-			float sum = ai->coef - bi->coef;
+			float sum = ai->coef + bi->coef;
 			if(sum) c.poly.InsertTail(temp.Set(sum,ai->exp));
 			ai++;
 			bi++;
