@@ -58,8 +58,10 @@ Polynomial Polynomial::operator+(Polynomial &b){
 	return c;
 }
 Polynomial Polynomial::operator=(const Polynomial &b){
-	//do copy 
-	return b;	
+	//do copy
+	Polynomial np;
+	np.poly = CircularList<Term>(b.poly); 
+	return np;	
 }
 Polynomial Polynomial::operator-(Polynomial &b){
 	Term temp;
