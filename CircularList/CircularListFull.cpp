@@ -1,15 +1,45 @@
 #include "CircularListFull.h"
 
+template <class T>
+ChainNode<T> *CircularList<T>::av = nullptr;//available list
 #include <iostream>
 template<class T>
 CircularList<T>::CircularList(){
-	av = nullptr;//available list
-	
+		
 	sentinel = new ChainNode<T>(); // sentinel 
 	sentinel->next = sentinel;
 	head = sentinel->next;
+	head->next = sentinel;
 	tail = sentinel->next;
 	tail->next = sentinel;
+}
+
+
+template<class T>
+CircularList<T>::CircularList(const CircularList<T> & b){
+	sentinel = new ChainNode<T>(); // sentinel 
+	sentinel->next = sentinel;
+	ChainNode<T> *prev = sentinel,*current,*b_current = b.head;
+	if (b_current == b.sentinel){// circular list b is empty
+		head = sentinel->next;
+		head->next = sentinel;
+		tail= sentinel->next;
+		tail->next = sentinel;
+	}else{
+		current = new ChainNode<T>(b_current->data);
+		head = current;
+		prev->next = current; 
+		prev = current;
+		b_current = b_current->next;
+		while(b_current != b.sentinel){
+			current = new ChainNode<T>(b_current->data);
+			prev->next = current;
+			prev = current;
+			b_current = b_current->next;
+		}
+		tail = current;
+		tail->next = sentinel;
+	}
 }
 
 
@@ -178,5 +208,45 @@ CircularList<T>::~CircularList(){
 		av = head;
 		tail = 0;
 		head = 0;
+	}
+}
+
+template <class T>
+bool CircularList<T>::comp(T a, T b) {
+	return true;
+}
+
+template <class T>
+void CircularList<T>::InsertSort(ChainNode<T> *newNode, bool(*c)(T,T) ) {
+	ChainNode<T>* prev = sentinel, * current = head;
+	int index = 0;
+	if (c == nullptr) {
+		while (current != sentinel && comp(newNode->data, current->data)) {
+			prev = current;
+			current = current->next;
+			index++;
+		}
+	}
+	else {
+		while (current != sentinel && (*c)(newNode->data, current->data)) {
+			prev = current;
+			current = current->next;
+			index++;
+		}
+	}
+	if (index == 0) {
+		//add front
+		// change head
+		InsertFront(newNode);
+	}
+	else if (current == sentinel) {
+		//add last
+		// change tail
+		InsertTail(newNode);
+	}
+	else {
+		// just add
+		newNode->next = prev->next;
+		prev->next = newNode;
 	}
 }

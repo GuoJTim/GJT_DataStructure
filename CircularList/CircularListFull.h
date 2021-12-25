@@ -15,10 +15,12 @@ class CircularList{
 		
 		CircularList();
 		~CircularList();
+		CircularList(const CircularList<T> &); // copy constructor
 		void InsertFront(const T&);
 		void InsertTail(const T&);
 		void InsertFront(ChainNode<T>*);
 		void InsertTail(ChainNode<T>*);
+		void InsertSort(ChainNode<T>*, bool(*c)(T,T) = nullptr);
 		static ChainNode<T>* GetNode();
 		static ChainNode<T>* GetAVlist();
 		static void RetNode(ChainNode<T>*&);
@@ -29,11 +31,12 @@ class CircularList{
 		ChainIterator begin();
 		ChainIterator end();
 		
+		bool comp(T,T);
+		
 		ChainNode<T>* GetSentinel();
 		int Length();
 };
-template <class T>
-ChainNode<T> *CircularList<T>::av;
+
 
 #include "CircularListFull.cpp"
 #endif
