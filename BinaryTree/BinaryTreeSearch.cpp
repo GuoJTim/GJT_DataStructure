@@ -79,7 +79,7 @@ void BinaryTreeSearch<T>::Insert(TreeNode<T>* z){
 template <class T>
 void BinaryTreeSearch<T>::Transplant(TreeNode<T>* u,TreeNode<T>* v){
 	if(u->parent == nullptr) BinaryTree<T>::root = v;
-	if(u->parent->left == u) u->parent->left = v;
+	else if(u->parent->left == u) u->parent->left = v;
 	else u->parent->right = v;
 	if (v != nullptr) v->parent = u->parent;
 }
@@ -107,12 +107,12 @@ void BinaryTreeSearch<T>::Delete(TreeNode<T>* z){
 
 
 template <class K,class V>
-Dictionary<K,V>::Dictionary():BinaryTree<std::pair<K,V>>(){
+Dictionary<K,V>::Dictionary():BinaryTreeSearch<std::pair<K,V>>(){
 	
 }
 
 template <class K,class V>
-Dictionary<K,V>::Dictionary(const Dictionary<K,V>& s):BinaryTree<std::pair<K,V>>(s){
+Dictionary<K,V>::Dictionary(const Dictionary<K,V>& s):BinaryTreeSearch<std::pair<K,V>>(s){
 	
 }
 
@@ -138,13 +138,35 @@ void Dictionary<K,V>::Insert(const std::pair<K,V>& thePair){
 	if(BinaryTree<std::pair<K,V>>::root != nullptr){
 		if (thePair.first < pp->data.first) pp->left = p;
 		else pp->right = p;
-	}else BinaryTree<std::pair<K,V>>::root = p;
+		p->parent = pp;
+	}else {
+		BinaryTree<std::pair<K,V>>::root = p;
+		p->parent = nullptr;
+	}
 }
 
 template <class K,class V>
-void Dictionary<K,V>::Delete(const K&){
-	BinaryTree<pair<K,V>>::size--;
+void Dictionary<K,V>::Delete(const K& k){
+	TreeNode<pair<K,V>> *element = Search(k);
+	if (element == nullptr) return;
+	BinaryTreeSearch<pair<K,V>>::Delete(element);
 }
+
+
+template <class K,class V>
+TreeNode<pair<K,V>>* Dictionary<K,V>::Search(K data){
+	return Search(BinaryTreeSearch<pair<K,V>>::root,data);
+}
+
+template <class K,class V>
+TreeNode<pair<K,V>>* Dictionary<K,V>::Search(TreeNode<pair<K,V>>* node,K data){
+	if(node == nullptr || data == node->data.first) return node;
+	if (data < node->data.first) return Search(node->left,data);
+	else return Search(node->right,data);
+}
+
+
+
 
 template <class K,class V>
 pair<K,V>* Dictionary<K,V>::Get(const K&k){

@@ -21,15 +21,17 @@ class BinaryTreeSearch : public BinaryTree<T>{
 
 
 template <class K,class V>
-class Dictionary : public BinaryTree<std::pair<K,V> >{
+class Dictionary : public BinaryTreeSearch<std::pair<K,V> >{
 	public:
 		Dictionary();
 		Dictionary(const Dictionary &s);
 		bool IsEmpty() const;
-		void Insert(const std::pair<K,V>&);
-		void Delete(const K&);
-		pair<K,V>* Get(const K&k);
-		pair<K,V>* Get(TreeNode<std::pair<K,V>>* p,const K &k);
+		void Insert(const std::pair<K,V>&); //over ride
+		void Delete(const K&); //over ride
+		pair<K,V>* Get(const K&k);//over ride
+		pair<K,V>* Get(TreeNode<std::pair<K,V>>* p,const K &k);//over ride
+		TreeNode<pair<K,V>>* Search(K data); // custom search 
+		TreeNode<pair<K,V>>* Search(TreeNode<pair<K,V>>* node,K data);
 };
 
 #include "BinaryTreeSearch.cpp"
