@@ -13,13 +13,13 @@ BinaryTreeSearch<T>::BinaryTreeSearch(const BinaryTreeSearch<T>& s):BinaryTree<T
 
 template <class T>
 TreeNode<T>* BinaryTreeSearch<T>::MINIMUM(TreeNode<T>* node){
-	while(node.left != nullptr) node = node->left;
+	while(node->left != nullptr) node = node->left;
 	return node;
 }
 
 template <class T>
 TreeNode<T>* BinaryTreeSearch<T>::MAXIMUM(TreeNode<T>* node){
-	while(node.right != nullptr) node = node->right;
+	while(node->right != nullptr) node = node->right;
 	return node;
 }
 
@@ -61,6 +61,7 @@ void BinaryTreeSearch<T>::Predecessor(TreeNode<T>* node){
 
 template <class T>
 void BinaryTreeSearch<T>::Insert(TreeNode<T>* z){
+	BinaryTree<T>::size++;
 	TreeNode<T>* y = nullptr;
 	TreeNode<T>* x = BinaryTree<T>::root;
 	while (x != nullptr){
@@ -85,6 +86,7 @@ void BinaryTreeSearch<T>::Transplant(TreeNode<T>* u,TreeNode<T>* v){
 
 template <class T>
 void BinaryTreeSearch<T>::Delete(TreeNode<T>* z){
+	BinaryTree<T>::size--;
 	if (z->left == nullptr) Transplant(z,z->right);
 	else if (z->right == nullptr) Transplant(z,z->left);
 	else {
@@ -121,6 +123,7 @@ bool Dictionary<K,V>::IsEmpty() const{
 
 template <class K,class V>
 void Dictionary<K,V>::Insert(const std::pair<K,V>& thePair){
+	BinaryTree<pair<K,V>>::size++;
 	TreeNode<pair<K,V>> *p = BinaryTree<std::pair<K,V>>::root, *pp = nullptr;
 	while(p!= nullptr){
 		pp = p;
@@ -140,7 +143,7 @@ void Dictionary<K,V>::Insert(const std::pair<K,V>& thePair){
 
 template <class K,class V>
 void Dictionary<K,V>::Delete(const K&){
-	
+	BinaryTree<pair<K,V>>::size--;
 }
 
 template <class K,class V>

@@ -5,6 +5,7 @@
 template <class T>
 class BinaryTree{
 	public:
+		int size = 0;
 		TreeNode<T> *root;
 		BinaryTree();
 		BinaryTree(const BinaryTree<T>& s);
@@ -19,6 +20,7 @@ class BinaryTree{
 		bool operator==(const BinaryTree &t) const;
 		bool Equal(TreeNode<T> *a,TreeNode<T> *b);
 		bool isEmpty() const;
+		void show_tree();
 };
 
 #include "BinaryTree.cpp"

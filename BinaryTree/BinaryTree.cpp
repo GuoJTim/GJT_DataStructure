@@ -1,4 +1,5 @@
 #include "BinaryTree.h"
+#include "../Utils/TreeTextHelper.cpp"
 #include <queue>
 #include <iostream>
 using namespace std;
@@ -69,6 +70,14 @@ void BinaryTree<T>::LevelOrder(){
 		currentNode = q.front(); q.pop();
 	}
 }
+
+template <class T>
+void BinaryTree<T>::show_tree(){
+	TreeTextHelper::showTree<T>(*this);
+	cout << endl;
+}
+
+
 
 template <class T>
 BinaryTree<T>::BinaryTree(const BinaryTree<T>& s){
