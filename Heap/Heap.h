@@ -28,6 +28,8 @@ class Heap{
 		void show_list();
 		void show_tree();
 		void sequence_order();
+		void Delete(T data);
+		int find_target(T &data,int current);
 };
 
 #include "Heap.cpp"
