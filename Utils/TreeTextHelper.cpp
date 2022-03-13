@@ -7,7 +7,10 @@
 #include <cmath>
 #include <queue>
 #include <sstream>
+#include <string>
+#include <typeinfo>
 using namespace std;
+
 class TreeTextHelper{
 	public:
 		static int calcSpace(int c){
@@ -40,7 +43,12 @@ class TreeTextHelper{
 		}
 		
 		
-	
+		template <class T>
+		static string getFormat(TreeNode<T> *node){
+			stringstream ss;
+			ss << node->data;
+			return ss.str();
+		}
 		
 		
 		template<class T>
@@ -64,10 +72,8 @@ class TreeTextHelper{
 				
 				for(int i = 0 ; i < space ; i++) cout << " ";
 				if(currentNode != nullptr){
-					stringstream ss;
-					ss << currentNode->data;
-					// idk why setw is not working on overload operator<<
-					cout << std::setfill(' ') << setw(3) << ss.str();
+					string out = getFormat<T>(currentNode);
+					cout << std::setfill(' ') << setw(3) << out;
 					q.push(currentNode->left);
 					q.push(currentNode->right);
 				}

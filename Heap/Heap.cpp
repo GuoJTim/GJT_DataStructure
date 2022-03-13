@@ -176,7 +176,7 @@ void Heap<T>::Delete(T data){
 		if (type == MAX_HEAP){
 			while(current > 1 && arr[current] > arr[current/2]){
 				swap(arr[current],arr[current/2]);
-				current_index /=2;
+				current /=2;
 			} 
 		}else{
 			while(current > 1 && arr[current] < arr[current/2]){
