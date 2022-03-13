@@ -109,11 +109,23 @@ int main(){
 	for(int i:sequence) max_heap.Insert(i);
 	cout << "max heap tree:" << endl;
 	max_heap.show_tree();//show tree
+	cout << "Delete 15";
+	max_heap.Delete(15);
+	max_heap.show_tree();//show tree
+	cout << "Insert 10";
+	max_heap.Insert(10);
+	max_heap.show_tree();//show tree
 	
 	
 	Heap<int> min_heap(MIN_HEAP); // min heap
 	for(int i:sequence) min_heap.Insert(i);
 	cout << "min heap tree:" << endl;
+	min_heap.show_tree();//show tree
+	cout << "Delete 15";
+	min_heap.Delete(15);
+	min_heap.show_tree();//show tree
+	cout << "Insert 10";
+	min_heap.Insert(10);
 	min_heap.show_tree();//show tree
 	
 }
