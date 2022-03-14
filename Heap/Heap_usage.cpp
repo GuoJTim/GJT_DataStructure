@@ -40,4 +40,15 @@ int main(){
 	myHeap4.Sort();
 	cout << "sorted arr:";myHeap4.show_list(); //with an array
 	cout << "sorted heap tree (first element and last element swap):\n";myHeap4.show_tree(); // show with heap tree
+	
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	cout << endl;
+	Heap<int> hh(MAX_HEAP,{21,10,20,4,9,13,18,1,2,8,9,10,12,14,16});
+	hh.show_tree();
+	hh.Delete(1);
+	hh.show_tree();
+	
+	
 }

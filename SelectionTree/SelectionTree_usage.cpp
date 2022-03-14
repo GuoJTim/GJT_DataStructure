@@ -4,7 +4,8 @@ using namespace std;
 
 
 int main(){
-	WinnerTree<int>::k_run = 8;
+	TreeTextHelper::changeElementSize(11);
+	WinnerTree<int>::k_run = 16;
 	WinnerTree<int> winnerTree(MIN,{6,5,4,5,6});
 	winnerTree.buildTree();
 	winnerTree.show_tree();

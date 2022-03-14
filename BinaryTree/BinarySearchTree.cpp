@@ -181,3 +181,16 @@ pair<K,V>* Dictionary<K,V>::Get(TreeNode<std::pair<K,V>>* p,const K &k){
 	return &p->data;
 }
 
+template <class K,class V>
+V* Dictionary<K,V>::GetValue(const K&k){
+	pair<K,V> *result = Get(k);
+	if (result != nullptr) return &result->second;
+	else return nullptr;
+}
+
+
+template <class K,class V>
+bool Dictionary<K,V>::Contains(const K&k){
+	return Get(k) != nullptr;
+}
+

@@ -166,13 +166,17 @@ void Heap<T>::Delete(T data){
 				current = current*2+1;
 			}
 		}
-		swap(arr[current],arr[arr.size()-1]);// can use the last element to swap
+		current /= 2;
+		arr[current] = arr.back();// can use the last element to swap
 		// then do the (bottom up)heapfiy here again and delete the last element in the array
 		
 		//cout << "last pop index is :" << current << endl; 
-		arr.erase(arr.end()-1);
+		//cout << "data:" << arr[current] << endl;
+		arr.pop_back();// remove back
 		
 		current /= 2;
+		//show first
+		
 		if (type == MAX_HEAP){
 			while(current > 1 && arr[current] > arr[current/2]){
 				swap(arr[current],arr[current/2]);
@@ -184,5 +188,6 @@ void Heap<T>::Delete(T data){
 				current /=2;
 			} 
 		}
+		cout << current << endl;
 	}
 }

@@ -6,7 +6,7 @@
 typedef enum HeapType{
 	MAX_HEAP,
 	MIN_HEAP
-};
+}HeapType;
 
 
 

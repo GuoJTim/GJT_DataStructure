@@ -1,12 +1,12 @@
 #include "SelectionTree.h"
 #include "../Utils/TreeTextHelper.cpp"
-		
+#include <limits.h> 
 template <class T>
 void WinnerTree<T>::init(){
 	for(int i = 0 ; i < k_run;i++){
 		if(type == MAX) runs[i] = Heap<T>(MAX_HEAP); // max heap
 		else runs[i] = Heap<T>(MIN_HEAP); // min heap
-		runs[i].Insert(type == MIN? INT_MAX:INT_MIN);
+		runs[i].Insert(type == MIN ? INT_MAX:INT_MIN);
 	}
 }
 template <class T>

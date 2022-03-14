@@ -32,6 +32,8 @@ class Dictionary : public BinarySearchTree<std::pair<K,V> >{
 		pair<K,V>* Get(TreeNode<std::pair<K,V>>* p,const K &k);//over ride
 		TreeNode<pair<K,V>>* Search(K data); // custom search 
 		TreeNode<pair<K,V>>* Search(TreeNode<pair<K,V>>* node,K data);
+		V* GetValue(const K&k);
+		bool Contains(const K&k);
 };
 
 #include "BinarySearchTree.cpp"
