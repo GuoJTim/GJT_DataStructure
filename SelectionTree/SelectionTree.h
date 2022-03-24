@@ -42,17 +42,20 @@ class LoserTree{
 		std::vector<T> parent;
 		int p = 0;						// pointer index
 		void init();					//initial the runs
-		bool compare(int a,int b);
-		
+		pair<T,T> compare(int index);
+		pair<T,T> compare(T &a,T &b);
+		void update(int i);
+		T LIMIT_VALUE;
 		
 	public:
 		static int k_run;
-		LoserTree();
-		LoserTree(std::vector<T> &_arr);
+		LoserTree(T LIMIT_VALUE);
+		LoserTree(std::vector<T> &_arr,T LIMIT_VALUE);
 		bool isEmpty();
 		T extract();
 		void show_tree();
 		void Insert(T data);
+		void build_tree();
 };
 
 

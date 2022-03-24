@@ -63,8 +63,7 @@ int main(){
 	
 	/* --Selection Tree-- */
 	cout << endl << endl << setw(30) << "Selection Tree" << endl;
-	WinnerTree<int> winnerTree(MAX,sequence); //max winner tree
-	winnerTree.buildTree();// require buildTree first
+	WinnerTree<int,std::greater<int>> winnerTree(sequence); //max winner tree
 	cout << "max winner tree ("<< WinnerTree<int>::k_run <<"runs) :" << endl;
 	winnerTree.show_tree();
 	
@@ -73,8 +72,8 @@ int main(){
 		cout << winnerTree.extract() << " ";
 	}cout << endl;
 	
-	LoserTree<int> loserTree(MAX,sequence); //max loser tree
-	loserTree.buildTree();// require buildTree first
+	LoserTree<int,std::greater<int>> loserTree(sequence,INT_MIN); //max loser tree
+	loserTree.build_tree();// require buildTree first
 	cout << "max loser tree ("<< LoserTree<int>::k_run <<"runs) :" << endl;
 	loserTree.show_tree();
 	
@@ -83,8 +82,7 @@ int main(){
 		cout << loserTree.extract() << " ";
 	}cout << endl;
 	
-	WinnerTree<int> winnerTree2(MIN,sequence); //min winner tree
-	winnerTree2.buildTree();// require buildTree first
+	WinnerTree<int> winnerTree2(sequence); //min winner tree
 	cout << "min winner tree ("<< WinnerTree<int>::k_run <<"runs) :" << endl;
 	winnerTree2.show_tree();
 	
@@ -94,8 +92,8 @@ int main(){
 	}cout << endl;
 	
 	LoserTree<int>::k_run = 8;// change the k_runs from 4 to 8 ( 4 is init
-	LoserTree<int> loserTree2(MIN,sequence); //min loser tree
-	loserTree2.buildTree();// require buildTree first
+	LoserTree<int> loserTree2(sequence,INT_MAX); //min loser tree
+	loserTree2.build_tree();// require buildTree first
 	cout << "min loser tree ("<< LoserTree<int>::k_run <<"runs) :" << endl;
 	loserTree2.show_tree();
 	
@@ -106,7 +104,7 @@ int main(){
 	
 	/* --Heap-- */
 	cout << endl << endl << setw(30) << "Heap" << endl;
-	Heap<int> max_heap(MAX_HEAP); // max heap
+	Heap<int,std::greater<int>> max_heap; // max heap
 	for(int i:sequence) max_heap.Insert(i);
 	cout << "max heap tree:" << endl;
 	max_heap.show_tree();//show tree
@@ -118,7 +116,7 @@ int main(){
 	max_heap.show_tree();//show tree
 	
 	
-	Heap<int> min_heap(MIN_HEAP); // min heap
+	Heap<int> min_heap; // min heap
 	for(int i:sequence) min_heap.Insert(i);
 	cout << "min heap tree:" << endl;
 	min_heap.show_tree();//show tree
