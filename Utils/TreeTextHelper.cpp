@@ -37,7 +37,7 @@ class TreeTextHelper{
 		//	else return calcSpace(c-1)*2+debug;
 		//}
 		template<class T>
-		static void showTree(std::vector<T> &arr,bool showRoot = false){
+		static void showTree(std::vector<T> &arr,bool showRoot = false,std::vector<T> show = {}){
 			int total_layer = log2(arr.size()-1)+1;
 			if(showRoot) {
 				int space = calcSpace(total_layer,1);
@@ -56,7 +56,8 @@ class TreeTextHelper{
 				}
 				else space = calcSpace(total_layer,current_layer);
 				for(int i = 0 ; i < space ; i++) cout << " ";
-				cout << std::setfill(' ')  << setw(baseSpace) << node;
+				if (show.size() == arr.size() && show[index] == -1) cout << std::setfill(' ')  << setw(baseSpace) << "NULL";
+				else cout << std::setfill(' ')  << setw(baseSpace) << node;
 			}
 		}
 		

@@ -14,7 +14,7 @@ ostream &operator<<(ostream& os,pair<int,char> p){
 
 int main(){
 	/* --Binary Search Tree-- */
-	cout << endl << endl << setw(30) << "Binary Search Tree" << endl;
+	cout << endl << endl << setw(5) << "Binary Search Tree" << endl;
 	vector<int> sequence = {10,6,8,7,15,3,9,13,12,5,14,16};
 	vector<TreeNode<int>*> seq_node; //used for remove a node
 	BinarySearchTree<int> BST;
@@ -25,14 +25,6 @@ int main(){
 	}
 	BST.show_tree();
 	cout << endl;
-	BST.Delete(seq_node[4]); //remove 15
-	cout << "Delete 15:" << endl;
-	BST.show_tree();
-	cout << endl;
-	BST.Insert(new TreeNode<int>(0)); // add 0
-	cout << "Add 0:" << endl;
-	BST.show_tree();
-	cout << endl;
 	cout << "Inorder:" << endl;
 	BST.Inorder();
 	cout << "Preorder:" << endl;
@@ -41,6 +33,15 @@ int main(){
 	BST.Postorder();
 	cout << "Levelorder:" << endl;
 	BST.LevelOrder();
+	cout << endl;
+	BST.Delete(seq_node[4]); //remove 15
+	cout << "Delete 15:" << endl;
+	BST.show_tree();
+	cout << endl;
+	BST.Insert(new TreeNode<int>(0)); // add 0
+	cout << "Add 0:" << endl;
+	BST.show_tree();
+	
 	
 	/* --Dictionary-- */
 	cout << endl << endl << setw(30) << "Dictionary" << endl;

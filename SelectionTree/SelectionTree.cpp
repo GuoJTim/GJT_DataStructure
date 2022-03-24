@@ -1,225 +1,214 @@
 #include "SelectionTree.h"
 #include "../Utils/TreeTextHelper.cpp"
-#include <limits.h> 
-template <class T>
-void WinnerTree<T>::init(){
+
+template <class T,class U>
+void WinnerTree<T,U>::init(){
+	runs.resize(k_run);
+	parent.resize(k_run*2,-1);
+	arr.resize(k_run*2);
 	for(int i = 0 ; i < k_run;i++){
-		if(type == MAX) runs[i] = Heap<T>(MAX_HEAP); // max heap
-		else runs[i] = Heap<T>(MIN_HEAP); // min heap
-		runs[i].Insert(type == MIN ? INT_MAX:INT_MIN);
+		runs[i] = Heap<T,U>();
+	}
+	for(int i = k_run; i < k_run*2;i++){
+		parent[i] = i; // get current parent for rapidly changes
 	}
 }
-template <class T>
-WinnerTree<T>::WinnerTree(SelectionType type){
-	runs.resize(k_run);
-	this->type = type;
+template <class T,class U>
+WinnerTree<T,U>::WinnerTree(){
 	init();
 }
-template <class T>
-WinnerTree<T>::WinnerTree(SelectionType type,vector<T> _arr){
-	runs.resize(k_run);
-	this->type = type;
+template <class T,class U>
+WinnerTree<T,U>::WinnerTree(vector<T> &_arr){
 	init();
-	for(int i = 0 ; i < _arr.size();i++){
-		runs[p++%k_run].Insert(_arr[i]);
+	for(T &obj:_arr){
+		Insert(obj);
 	}
 }
 
-template <class T>
-void WinnerTree<T>::buildTree(){
-	arr.resize(k_run*2,0);
-	for(int i = 0 ; i < k_run;i++){
-		arr[k_run+i] = runs[i].extract();//top
-	}
-	for(int i = k_run-1 ; i >= 1 ; i--){
-		arr[i] = compare(i);
-	}
+template <class T,class U>
+bool WinnerTree<T,U>::compare(int a,int b){
+	return cmp()(arr[a],arr[b]);
 }
+			
+
+template <class T,class U>
+bool WinnerTree<T,U>::isEmpty(){
+	return parent[1] == -1;
+}
+
+template <class T,class U>
+T WinnerTree<T,U>::extract(){
+	int run_index = parent[1]-k_run;
+	T root = runs[run_index].extract();
+	int current = run_index + k_run;
+	if (!runs[run_index].size()) {
+		// is empty
+		parent[current] = -1;
+	}else {
+		arr[current] = runs[run_index].top();
+		parent[current] = current;
+	}
+	
+	current /= 2;
+	while(current >= 1){
+		if (parent[current*2] == -1){
+			//left tree
+			parent[current] = parent[current*2+1];
+			arr[current] = arr[current*2+1];
+			current /= 2;
+		}
+		else if (parent[current*2+1] == -1){
+			//right tree
+			parent[current] = parent[current*2];
+			arr[current] = arr[current*2];
+			current /= 2;
+		}else {
+			if(compare(current*2,current*2+1)){
+				parent[current] = parent[current*2];
+				arr[current] = arr[current*2];
+			}else{
+				parent[current] = parent[current*2+1];
+				arr[current] = arr[current*2+1];
+			}
+			current /= 2;
+		}
 		
-template <class T>
-T WinnerTree<T>::compare(int index){
-	if (type == MAX){
-		return arr[index*2] >= arr[index*2+1] ? arr[index*2] : arr[index*2+1];
-	}else{
-		return arr[index*2] <= arr[index*2+1] ? arr[index*2] : arr[index*2+1];
 	}
-}
-
-template <class T>
-bool WinnerTree<T>::isEmpty(){
-	return (arr[1] == INT_MAX && type == MIN)||
-			(arr[1] == INT_MIN && type == MAX);
-}
-
-template <class T>
-T WinnerTree<T>::extract(){
-	T root = arr[1];
-	extract(1,1);
+	
+	
 	return root;
 }
 
-template <class T>
-void WinnerTree<T>::extract(int index,int prev_index){
-	if (index >= k_run) {
-		arr[index] = runs[index-k_run].extract();
-		
-	}
-	else if (type == MAX){
-		if (arr[index*2] >= arr[index*2+1]){
-			extract(index*2,index);
-		}else extract(index*2+1,index);
-	}else{
-		if (arr[index*2] <= arr[index*2+1]){
-			extract(index*2,index);
-		}else extract(index*2+1,index);
-	}
-	if (type == MAX){
-		if (arr[prev_index*2] >= arr[prev_index*2+1]) arr[prev_index] = arr[prev_index*2];
-		else arr[prev_index] = arr[prev_index*2+1];
-	}else{
-		if (arr[prev_index*2] <= arr[prev_index*2+1]) arr[prev_index] = arr[prev_index*2];
-		else arr[prev_index] = arr[prev_index*2+1];
-	}
-}
-	
-template <class T>	
-void WinnerTree<T>::show_tree(){
-	TreeTextHelper::showTree<T>(arr);
+template <class T,class U>	
+void WinnerTree<T,U>::show_tree(){
+	TreeTextHelper::showTree<T>(arr,false,parent);
 	cout << endl;
 	cout << endl;
 }
 
-
-
-
-template <class T>
-void LoserTree<T>::init(){
-	for(int i = 0 ; i < k_run;i++){
-		if(type == MAX) runs[i] = Heap<T>(MAX_HEAP); // max heap
-		else runs[i] = Heap<T>(MIN_HEAP); // min heap
-		runs[i].Insert(type == MIN? INT_MAX:INT_MIN);
-	}
-}
-
-template <class T>
-LoserTree<T>::LoserTree(SelectionType type){
-	runs.resize(k_run);
-	this->type = type;
-	init();
-}
-
-template <class T>
-LoserTree<T>::LoserTree(SelectionType type,vector<T> _arr){
-	runs.resize(k_run);
-	this->type = type;
-	init();
-	for(int i = 0 ; i < _arr.size();i++){
-		runs[p++%k_run].Insert(_arr[i]);
-	}
-}
-	
-template <class T>	
-void LoserTree<T>::heapify(int i){
-	pair<T,T> p = compare(i);
-	arr[i] = p.second;
-	T ret = p.first;
-	int ret_pos;
-	if (p.first == arr[i*2]){
-		parent[i] = i*2+1;
-		ret_pos = i*2;
+template <class T,class U>
+void WinnerTree<T,U>::Insert(T data){
+	int run_index = p%k_run;	
+	p++;
+	if(!runs[run_index].size()){
+		//is empty
+		runs[run_index].Insert(data); 
 	}else{
-		parent[i] = i*2;
-		ret_pos = i*2+1;
+		T orig = runs[run_index].top();
+		runs[run_index].Insert(data); 
+		if (orig == runs[run_index].top()){
+			// no need change
+			return;
+		}
 	}
-	int current_i = i/2;
-			
-	int current = i/2;
-	// && 
-	//	((arr[current] != INT_MIN && type == MAX)||
-	//	(arr[current]  != INT_MAX && type == MIN))
-	//
-	while(current >= 1 && parent[current] != -1){
-		//ret 為目前 獲勝者 arr[current] 為原本的 獲勝者 
-		pair<T,T> cp = compare(ret,arr[current]);//check the winner and loser
-		
-		if(ret == cp.first){ // still the winner 還是獲勝者 則 原本保留 
-			
-		}else { // 不適獲勝者了 原本的 贏了 原本上升 
-			swap(ret_pos,parent[current]);
-		} 
-		arr[current] = cp.second;
-		ret = cp.first;
+	int current = run_index + k_run;
+	arr[current] = runs[run_index].top();
+	while(current > 1 && (parent[current/2] == -1 || compare(current,current/2))){
+		parent[current/2] = parent[current];
+		arr[current/2] = arr[current];
 		current /= 2;
-		current_i /= 2;
 	}
-	arr[current] = ret;
-	parent[current_i] = ret_pos;
 }
-		
 
-template <class T>		
-void LoserTree<T>::buildTree(){
-	parent.resize(k_run,-1);
-	if( type == MIN) arr.resize(k_run*2,INT_MAX);
-	if( type == MAX) arr.resize(k_run*2,INT_MIN);
+//-----------------------------------------------------------------------
+
+template <class T,class U>
+void LoserTree<T,U>::init(){
+	runs.resize(k_run);
+	parent.resize(k_run*2,-1);
+	arr.resize(k_run*2);
 	for(int i = 0 ; i < k_run;i++){
-		arr[k_run+i] =runs[i].extract();//top
+		runs[i] = Heap<T,U>();
 	}
-	for(int i = k_run/2 ; i < k_run ; i++){
-		heapify(i);
+	for(int i = k_run; i < k_run*2;i++){
+		parent[i] = i; // get current parent for rapidly changes
+	}
+}
+
+template <class T,class U>
+LoserTree<T,U>::LoserTree(){
+	init();
+}
+
+template <class T,class U>
+LoserTree<T,U>::LoserTree(vector<T> &_arr){
+	init();
+	for(T &obj:_arr){
+		Insert(obj);
 	}
 }
 		
-// <win,lose>
-template <class T>
-pair<T,T> LoserTree<T>::compare(int index){
-	return compare(arr[index*2],arr[index*2+1]);
-}
-		
-template <class T>
-pair<T,T> LoserTree<T>::compare(T &a,T &b){
-	if (type == MAX){
-		return a >= b ? make_pair(a,b) : make_pair(b,a);
-	}else{
-		return a <= b ? make_pair(a,b) : make_pair(b,a);
-	}
+template <class T,class U>
+bool LoserTree<T,U>::compare(int a,int b){
+	return cmp()(arr[a],arr[b]);
 }
 
-template <class T>
-bool LoserTree<T>::isEmpty(){
-	return (arr[0] == INT_MAX && type == MIN)||
-			(arr[0] == INT_MIN && type == MAX);
+template <class T,class U>
+bool LoserTree<T,U>::isEmpty(){
+	return parent[1] == -1;
 }
 
-template <class T>
-T LoserTree<T>::extract(){
-	T root = arr[0]; // extract 0
-	int index = parent[0];// find the arr
-	arr[index] = runs[index-k_run].extract(); //extract the runs
-	//then do again
-	heapify(index/2);
-	return root;
-}
-
-template <class T>
-int LoserTree<T>::find_index(int index){
-	if (index >= k_run) {
-		arr[index] = runs[index-k_run].extract();
-		return index;
-	}
-	else if (type == MAX){
-		if (arr[index*2] >= arr[index*2+1]){
-			return find_index(index*2);
-		}else return find_index(index*2+1);
-	}else{
-		if (arr[index*2] <= arr[index*2+1]){
-			return find_index(index*2);
-		}else return find_index(index*2+1);
-	}
-}
+template <class T,class U>
+T LoserTree<T,U>::extract(){
 	
-template <class T>	
-void LoserTree<T>::show_tree(){
-	TreeTextHelper::showTree<T>(arr,true);
+}
+
+
+template <class T,class U>
+void LoserTree<T,U>::Insert(T data){
+	int run_index = p%k_run;	
+	p++;
+	if(!runs[run_index].size()){
+		//is empty
+		runs[run_index].Insert(data); 
+	}else{
+		T orig = runs[run_index].top();
+		runs[run_index].Insert(data); 
+		if (orig == runs[run_index].top()){
+			// no need change
+			return;
+		}
+	}
+	
+	//  x
+	// 4 5
+	//
+	// if is empty just push
+	// 
+	//
+	
+	int current = run_index + k_run;
+	arr[current] = runs[run_index].top();
+	int cmp_index = current;
+	
+	//&& (parent[current/2] == -1 || compare(current,current/2))
+	while(current > 0 && (parent[current/2] == -1 || compare(cmp_index,current/2))){
+		if (parent[current/2] == -1){
+			parent[current/2] = parent[cmp_index];
+			arr[current/2] = arr[cmp_index];	
+		}
+		else if (compare(cmp_index,current/2)){
+			//this is the winner
+			int temp_cur = current/2;
+			while(temp_cur > 0 && parent[current/2] == parent[temp_cur/2]){
+				parent[temp_cur/2] = cmp_index;
+				arr[temp_cur/2] = arr[cmp_index];
+				temp_cur /= 2;
+			}
+		}else{
+			//lose
+			arr[current/2] = arr[cmp_index];
+			swap(cmp_index,parent[current/2]);
+			
+			
+		}
+		current /= 2;
+	}
+}
+
+	
+template <class T,class U>	
+void LoserTree<T,U>::show_tree(){
+	TreeTextHelper::showTree<T>(arr,true,parent);
 	cout << endl;
 }

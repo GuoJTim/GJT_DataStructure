@@ -1,10 +1,11 @@
 #include "Heap.h"
+#include <functional>
 #include <iostream>
 using namespace std;
 
 int main(){
 	//Build a heap
-	Heap<int> myHeap(MAX_HEAP);
+	Heap<int,greater<int>> myHeap;
 	myHeap.Insert(5);
 	myHeap.show_list();
 	myHeap.Insert(4);
@@ -13,7 +14,7 @@ int main(){
 	myHeap.show_list();
 	// a max heap
 	
-	Heap<int> myHeap2(MIN_HEAP);
+	Heap<int> myHeap2;
 	myHeap2.Insert(5);
 	myHeap2.show_list();
 	myHeap2.Insert(4);
@@ -23,7 +24,7 @@ int main(){
 	// a min heap
 	
 	
-	Heap<int> myHeap3(MAX_HEAP,{2,4,3,6,7,9,3,8,6});
+	Heap<int,greater<int>> myHeap3({2,4,3,6,7,9,3,8,6});
 	cout << "show sequence list:";myHeap3.show_list(); //with an array
 	cout << "show the heap tree:\n";myHeap3.show_tree(); // show with heap tree
 	myHeap3.Delete(3);
@@ -36,7 +37,7 @@ int main(){
 	
 	
 	
-	Heap<int> myHeap4(MAX_HEAP, {9, 4, 1, 6, 7, 3, 8, 2, 5});
+	Heap<int,greater<int>> myHeap4( {9, 4, 1, 6, 7, 3, 8, 2, 5});
 	myHeap4.Sort();
 	cout << "sorted arr:";myHeap4.show_list(); //with an array
 	cout << "sorted heap tree (first element and last element swap):\n";myHeap4.show_tree(); // show with heap tree
@@ -45,10 +46,14 @@ int main(){
 	cout << endl;
 	cout << endl;
 	cout << endl;
-	Heap<int> hh(MAX_HEAP,{21,10,20,4,9,13,18,1,2,8,9,10,12,14,16});
+	Heap<int,greater<int>> hh({21,10,20,4,9,13,18,1,2,8,9,10,12,14,16});
 	hh.show_tree();
-	hh.Delete(1);
+	hh.Delete(4);
 	hh.show_tree();
+	while(hh.size()){
+		int n = hh.extract();
+		cout << n << endl;
+	}
 	
 	
 }

@@ -61,9 +61,9 @@ int main(){
 	org_insert_sort.print();
 	
 	CircularList<int> custom_insert_sort;
-	custom_insert_sort.InsertSort(new ChainNode<int>(1),&comp);
-	custom_insert_sort.InsertSort(new ChainNode<int>(4),&comp);
-	custom_insert_sort.InsertSort(new ChainNode<int>(2),&comp);
+	custom_insert_sort.InsertSort(new ChainNode<int>(1),comp);
+	custom_insert_sort.InsertSort(new ChainNode<int>(4),comp);
+	custom_insert_sort.InsertSort(new ChainNode<int>(2),comp);
 	custom_insert_sort.print();
 #endif 
 }
