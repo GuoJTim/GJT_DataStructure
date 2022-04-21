@@ -169,13 +169,15 @@ void MatrixWDiGraph::dijkstra(int source){
 	}
 	while (Q.size()){
 		node smallest = Q.top();Q.pop();
+		cout << smallest.u << "," << smallest.v << endl;
 		if (S.find(source) != S.find(smallest.v)){
 			for(int v : adjNodes(smallest.v)){
-				relax(smallEdge.u,v);
-				cout << "test" << endl;
+				relax(smallest.u,v);
+				Q.push({smallest.u,v,weight[smallest.u][v]});
+				cout << smallest.u << "->" << v << endl;
 			}
 		}
-		S.Union(source,smallEdge.v);
+		S.Union(source,smallest.v);
 	}
 	for(int i = 0 ; i < nodes;i++){
 		cout << dist[i] << " ";
