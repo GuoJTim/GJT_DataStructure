@@ -7,10 +7,8 @@
 
 class Graph{
 	public:
-		Graph(int nodes){
-			this->nodes = nodes;
-			n = nodes;
-		} 
+		Graph(int nodes);
+		~Graph();
 		bool IsEmtpy() const {
 			return n == 0;
 		}
@@ -45,6 +43,11 @@ class Graph{
 		virtual double Kruskal() = 0;
 		virtual double Prim(int n) = 0;
 		virtual double Sollin() = 0;
+		
+		virtual void relax(int u,int v) = 0; //relaxation
+		virtual void dijkstra(int source) = 0;
+		virtual bool bellman_ford(int source) = 0;
+		virtual void floyd_warshall() = 0;
 		
 		
 		int nodes; // nodes 表 目前 graph 最大上限的節點數量 

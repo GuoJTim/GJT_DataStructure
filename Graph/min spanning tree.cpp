@@ -13,6 +13,12 @@ int main(){
     test.InsertEdge(3,4,22);
     test.InsertEdge(4,6,24);
     test.InsertEdge(4,5,25);
+    
 	cout << test.Sollin();
+	cout << endl;
+	cout << test.Kruskal();
+	cout << endl;
+	cout << test.Prim(0);
+	cout << endl;
 
 }

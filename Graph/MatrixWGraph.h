@@ -7,6 +7,7 @@ class MatrixWGraph : public MatrixWDiGraph{
 		MatrixWGraph(int nodes);
 		void InsertEdge(int u,int v) override;
 		void InsertEdge(int u,int v,double w) override;
+		void DeleteEdge(int u,int v) override;
 		~MatrixWGraph();
 };
 #include "MatrixWGraph.cpp"

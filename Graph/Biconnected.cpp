@@ -18,6 +18,6 @@ int main(){
 	test.InsertEdge(7,9);
 	test.InsertEdge(7,8);
 	
-	test.Biconnected();// still error now
+	test.Biconnected();
 
 }

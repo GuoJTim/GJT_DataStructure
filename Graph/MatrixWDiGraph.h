@@ -32,6 +32,18 @@ class MatrixWDiGraph : public Graph{
 		double Sollin() override;
 		std::vector<std::vector<bool>> matrix;
 		std::vector<std::vector<double>> weight;
+		
+		
+		void relax(int u,int v) override;
+		void dijkstra(int source) override;
+		bool bellman_ford(int source) override;
+		void floyd_warshall() override;
+	private:
+		void initialize_single_source(int source); // ªì©l¤Æ 
+		int *dist; // to current dist 
+		int *parent; // last path
+		int ***D; // used for floyd-warshall
+		int ***PI;// used for floyd-warshall
 };
 #include "MatrixWDiGraph.cpp"
 #endif

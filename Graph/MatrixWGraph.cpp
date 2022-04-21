@@ -15,6 +15,12 @@ void MatrixWGraph::InsertEdge(int u,int v,double w) {
 	weight[v][u] = w;
 }
 
+void MatrixWGraph::DeleteEdge(int u,int v) {
+	if (matrix[u][v]) e--;
+	if (matrix[v][u]) e--;
+	matrix[u][v] = false;
+	matrix[v][u] = false;
+}
 
 MatrixWGraph::~MatrixWGraph(){
 	

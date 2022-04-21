@@ -6,6 +6,16 @@
 #include <queue>
 #include <stack>
 using namespace std;
+
+Graph::Graph(int nodes){
+	this->nodes = nodes;
+	n = nodes;
+}
+
+Graph::~Graph(){
+	
+} 
+
 void Graph::DFS(){
 	visited = new bool[nodes];
 	fill(visited,visited+nodes,false);
@@ -108,16 +118,14 @@ void Graph::Biconnected(){
 }
 
 
-// there have some errror here vv
 void Graph::Biconnected(const int u,const int v){
 	dfn[u] = low[u] = num++;
 	for(int w : adjNodes(u)){
 		if((v!=w) && (dfn[w] < dfn[u])) {
 			s.push({u,w});
-			cout << "insert" << u << "," << w << endl;
 		}
 		if(dfn[w] == 0){
-			DfnLow(w,u);
+			Biconnected(w,u);
 			low[u] = min(low[u],low[w]);
 			if(low[w] >= dfn[u]){
 				cout << "New Biconnected Component: " << endl;
@@ -134,5 +142,6 @@ void Graph::Biconnected(const int u,const int v){
 		else if (w!=v) low[u] = min(low[u],dfn[w]); //back edge
 	}
 }
+
 
 
