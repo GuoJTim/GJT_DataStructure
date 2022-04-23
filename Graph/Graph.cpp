@@ -15,7 +15,6 @@ Graph::Graph(int nodes){
 Graph::~Graph(){
 	
 } 
-
 void Graph::DFS(){
 	visited = new bool[nodes];
 	fill(visited,visited+nodes,false);

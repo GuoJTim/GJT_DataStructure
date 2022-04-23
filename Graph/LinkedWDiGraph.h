@@ -32,9 +32,15 @@ class LinkedWDiGraph: public Graph{
 		void DeleteEdge(int u,int v) override;
 		int IndexOf(Chain<node> &chain,const int obj);
 		std::vector<int> adjNodes(int u) override;
-		double Kruskal() override;
-		double Prim(int n) override;
-		double Sollin() override;
+		double Kruskal() override{
+			cout << "Kruskal cannot be used for directed graph" << endl;
+		}
+		double Prim(int n) override{
+			cout << "Prim cannot be used for directed graph" << endl;
+		}
+		double Sollin() override{
+			cout << "Sollin cannot be used for directed graph" << endl;
+		}
 		
 		
 		~LinkedWDiGraph();

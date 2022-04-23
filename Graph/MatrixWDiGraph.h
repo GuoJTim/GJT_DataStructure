@@ -30,9 +30,15 @@ class MatrixWDiGraph : public Graph{
 		void DeleteEdge(int u,int v) override;
 		std::vector<int> adjNodes(int u) override;
 		~MatrixWDiGraph();
-		double Kruskal() override;
-		double Prim(int n) override;
-		double Sollin() override;
+		double Kruskal() override{
+			cout << "Kruskal cannot be used for directed graph" << endl;
+		}
+		double Prim(int n) override{
+			cout << "Prim cannot be used for directed graph" << endl;
+		}
+		double Sollin() override{
+			cout << "Sollin cannot be used for directed graph" << endl;
+		}
 		std::vector<std::vector<bool>> matrix;
 		std::vector<std::vector<double>> weight;
 		

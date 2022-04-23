@@ -8,6 +8,9 @@ class MatrixWGraph : public MatrixWDiGraph{
 		void InsertEdge(int u,int v) override;
 		void InsertEdge(int u,int v,double w) override;
 		void DeleteEdge(int u,int v) override;
+		double Kruskal() override;
+		double Prim(int n) override;
+		double Sollin() override;
 		~MatrixWGraph();
 };
 #include "MatrixWGraph.cpp"

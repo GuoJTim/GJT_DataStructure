@@ -60,6 +60,7 @@ class Graph{
 		int *dfn;
 		int *low;
 		bool *visited;
+		
 };
 #include "Graph.cpp"
 #endif
