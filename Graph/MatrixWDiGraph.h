@@ -1,8 +1,7 @@
 #include "Graph.h"
 #include <vector>
 #include <queue>
-#ifndef MatrixWDigraph_H
-#define MatrixWDigraph_H
+#ifndef DiGraph_MACRO
 
 typedef struct node{
 	int u;
@@ -15,6 +14,10 @@ struct comp{
     }
 };
 
+#define DiGraph_MACRO
+#endif
+#ifndef MatrixWDigraph_H
+#define MatrixWDigraph_H
 class MatrixWDiGraph : public Graph{
 	public:
 		MatrixWDiGraph(int nodes);

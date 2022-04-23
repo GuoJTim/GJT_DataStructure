@@ -13,6 +13,7 @@ class DSU{
 		void resize(int newSize);
 		int find(int index);
 		void Union(int a,int b);
+		int getSize(int index);
 		std::vector<int> getFamily(int index);
 	
 };

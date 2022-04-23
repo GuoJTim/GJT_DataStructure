@@ -20,6 +20,9 @@ int DSU::find(int index){
     if (parent[index] == index) return index;
     return parent[index] = find(parent[index]);
 }
+int DSU::getSize(int index){
+	return size[index];
+}
 void DSU::Union(int a,int b){
     int fa = find(a),fb = find(b);
 	if (size[fb] > size[fa]) std::swap(fa,fb);

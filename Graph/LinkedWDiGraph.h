@@ -1,8 +1,9 @@
 #include "Graph.h"
 #include "../Chain/Chain.h"
 #include "../ChainIterator/ChainIterator.h"
-#ifndef LinkedWDiGraph_H
-#define LinkedWDiGraph_H
+
+#ifndef DiGraph_MACRO
+
 typedef struct node{
 	int u;
 	int v;
@@ -13,6 +14,12 @@ struct comp{
         return a.w > b.w;
     }
 };
+
+#define DiGraph_MACRO
+#endif
+
+#ifndef LinkedWDiGraph_H
+#define LinkedWDiGraph_H
 
 class LinkedWDiGraph: public Graph{
 	public:
@@ -32,6 +39,17 @@ class LinkedWDiGraph: public Graph{
 		
 		~LinkedWDiGraph();
 		Chain<node> *adjLists;
+		
+		void relax(int u,int v) override;
+		void dijkstra(int source) override;
+		bool bellman_ford(int source) override;
+		void floyd_warshall() override;
+	private:
+		void initialize_single_source(int source); // ªì©l¤Æ 
+		int *dist; // to current dist 
+		int *parent; // last path
+		int ***D; // used for floyd-warshall
+		int ***PI;// used for floyd-warshall
 };
 #include "LinkedWDiGraph.cpp"
 #endif

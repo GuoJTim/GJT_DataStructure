@@ -162,22 +162,17 @@ void MatrixWDiGraph::dijkstra(int source){
 	initialize_single_source(source);
 	DSU S(nodes);
 	priority_queue<node,vector<node>,comp> Q;
-	for (int v : adjNodes(source)){
-		int u = source;
-		//u to v
-		Q.push({u,v,weight[u][v]});
-	}
+	Q.push({source,-1,-1});
 	while (Q.size()){
-		node smallest = Q.top();Q.pop();
-		cout << smallest.u << "," << smallest.v << endl;
-		if (S.find(source) != S.find(smallest.v)){
-			for(int v : adjNodes(smallest.v)){
-				relax(smallest.u,v);
-				Q.push({smallest.u,v,weight[smallest.u][v]});
-				cout << smallest.u << "->" << v << endl;
+		int u = Q.top().u;Q.pop();
+		if (S.find(source) != S.find(u) || S.getSize(source) == 1){
+			for(int v : adjNodes(u)){
+				relax(u,v);
+				Q.push({v,-1,weight[u][v]});
 			}
+			
 		}
-		S.Union(source,smallest.v);
+		S.Union(source,u);
 	}
 	for(int i = 0 ; i < nodes;i++){
 		cout << dist[i] << " ";
