@@ -1,4 +1,5 @@
 #include "MatrixWDiGraph.h"
+#include "LinkedWDiGraph.h"
 #include <iostream>
 using namespace std;
 
@@ -9,8 +10,15 @@ int main(){
     g.InsertEdge(2, 4, 2);g.InsertEdge(2, 5, 9);
     g.InsertEdge(3, 2, 7);g.InsertEdge(3, 4, 7);
     g.InsertEdge(4, 2, 4);g.InsertEdge(4, 5, 8);
+    LinkedWDiGraph g4(6);	
+	g4.InsertEdge(0, 1, 9);g4.InsertEdge(0, 3, 9);
+    g4.InsertEdge(1, 2, 3);g4.InsertEdge(1, 3, 8);
+    g4.InsertEdge(2, 4, 2);g4.InsertEdge(2, 5, 9);
+    g4.InsertEdge(3, 2, 7);g4.InsertEdge(3, 4, 7);
+    g4.InsertEdge(4, 2, 4);g4.InsertEdge(4, 5, 8);
     
     cout << g.EdmondsKarp(0,5) << endl;
+    cout << g4.EdmondsKarp(0,5) << endl;
     
     
 	MatrixWDiGraph g2(6);	

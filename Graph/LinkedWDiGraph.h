@@ -42,6 +42,7 @@ class LinkedWDiGraph: public Graph{
 			cout << "Sollin cannot be used for directed graph" << endl;
 		}
 		
+		double EdmondsKarp(int s,int t) override;
 		
 		~LinkedWDiGraph();
 		Chain<node> *adjLists;
@@ -51,6 +52,8 @@ class LinkedWDiGraph: public Graph{
 		bool bellman_ford(int source) override;
 		void floyd_warshall() override;
 	private:
+		double findMinCost(int *path,int t);
+		bool BFSfindPath(int **resdualGraph,int *path,int s, int t);
 		void initialize_single_source(int source); // ªì©l¤Æ 
 		int *dist; // to current dist 
 		int *parent; // last path

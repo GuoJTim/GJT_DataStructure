@@ -176,6 +176,77 @@ void LinkedWDiGraph::initialize_single_source(int source){
 	dist[source] = 0;
 }
 
+//------- maximum flow
+
+
+double LinkedWDiGraph::EdmondsKarp(int s,int t){
+	int **resdualGraph = new int*[nodes];
+	for(int i = 0 ; i < nodes;i++){
+		resdualGraph[i] = new int[nodes];
+		for(Chain<node>::ChainIterator it = adjLists[i].begin() ; it != adjLists[i].end();it++){
+			int u = it->u;
+			int v = it->v;
+			double w = it->w;
+			resdualGraph[u][v] = w;
+		}
+	}
+	double maxflow = 0.0;
+	int path[nodes];
+	while(BFSfindPath(resdualGraph,path,s,t)){
+		double minCapacity = findMinCost(path,t);
+		maxflow += minCapacity;
+		
+		for(int v = t; v != s; v = path[v]){
+			int u = path[v];// from u to v
+			resdualGraph[u][v] -= minCapacity;
+			resdualGraph[v][u] += minCapacity;
+		}
+	}
+	
+	for(int i = 0 ; i < nodes;i++){
+		delete[] resdualGraph[i];
+	}
+	delete[] resdualGraph;
+	
+	return maxflow;
+}
+
+
+bool LinkedWDiGraph::BFSfindPath(int **resdualGraph,int *path,int s, int t){
+	int visited_[nodes];
+	for (int i = 0; i < nodes; i++){
+        visited_[i] = 0;     // 0 表示還沒有被找到
+        path[i] = -1; // refer to the prevent path
+    }
+    std::queue<int> q;
+	q.push(s);
+	visited_[s] = 1;
+	while(q.size()){
+		int u = q.front();q.pop();
+		for(int v :adjNodes(u)){
+			//adj nodes
+			
+			//resdual graph from u to v 
+			if(resdualGraph[u][v] > 0 && !visited_[v]){
+				q.push(v);
+				visited_[v] = true;
+				path[v] = u;
+			}
+		}
+	} 
+	return visited_[t]; // if find a path
+}
+double LinkedWDiGraph::findMinCost(int *path,int t){
+	double minCost = 100;
+	while(path[t] != -1){
+		int find = IndexOf(adjLists[path[t]],t);
+		minCost = min(adjLists[path[t]].Get(find)->data.w,minCost);
+		t = path[t];// predecessor
+	}
+	return minCost;
+}
+
+
 
 
 LinkedWDiGraph::~LinkedWDiGraph(){
