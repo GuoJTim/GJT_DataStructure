@@ -24,5 +24,13 @@ int main(){
 	g2.InsertEdge(2,5,20);	
 	g2.InsertEdge(4,5,4);
     cout << g2.EdmondsKarp(0,5) << endl;
+    
+    MatrixWDiGraph g3(4);
+    g3.InsertEdge(0,1,10000);
+    g3.InsertEdge(0,2,10000);
+    g3.InsertEdge(1,3,10000);
+    g3.InsertEdge(2,3,10000);
+    g3.InsertEdge(1,2,1);
+    cout << g3.EdmondsKarp(0,3) << endl;
 
 }

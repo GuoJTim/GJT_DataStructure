@@ -116,6 +116,42 @@ void Graph::Biconnected(){
 	delete [] low;
 }
 
+std::vector<int> Graph::topologySort(){
+	//BFS 拔拔樂 
+	// reference to:
+	//detaomega
+	//NYCU_LoTaTea
+
+	//
+	//
+	//
+	//計算各個 in degree
+	int inDegree[nodes] = {0};
+	for (int i = 0 ; i < nodes;i++){
+		for(int j = 0 ; j < nodes; j++){
+			if (ExistsEdge(i,j))  { // i 到 j 島通 則對 j 來說 inDegree  +1
+				inDegree[j]++; 
+			}
+		}
+	} 
+	//找 indegree 為 0 的 
+	
+	queue<int> q;
+	for(int i = 0 ; i < nodes;i++){
+		if(inDegree[i] == 0) q.push(i); // add indegree = 0 to queue;
+	}
+	vector<int> topology;
+	while(q.size()){
+		int u = q.front();q.pop();
+		topology.push_back(u);
+		for (int v : adjNodes(u)){
+			inDegree[v]--;//把邊打掉 
+			if(inDegree[v] == 0) q.push(v);
+		}
+	}
+	return topology;
+}
+
 
 void Graph::Biconnected(const int u,const int v){
 	dfn[u] = low[u] = num++;

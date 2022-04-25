@@ -56,7 +56,7 @@ class Graph{
 		virtual double EdmondsKarp(int s,int t) = 0; // used for directed weight graph
 		
 		
-		//virtual void topologySort(); // not a total order sort;
+		std::vector<int> topologySort(); // not a total order sort;
 		
 		int nodes; // nodes 表 目前 graph 最大上限的節點數量 
 		DSU dsu;
