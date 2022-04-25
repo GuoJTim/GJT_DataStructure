@@ -42,12 +42,15 @@ class MatrixWDiGraph : public Graph{
 		std::vector<std::vector<bool>> matrix;
 		std::vector<std::vector<double>> weight;
 		
+		double EdmondsKarp(int s,int t) override;
 		
 		void relax(int u,int v) override;
 		void dijkstra(int source) override;
 		bool bellman_ford(int source) override;
 		void floyd_warshall() override;
 	private:
+		double findMinCost(int *path,int t);
+		bool BFSfindPath(int **resdualGraph,int *path,int s, int t);
 		void initialize_single_source(int source); // ªì©l¤Æ 
 		int *dist; // to current dist 
 		int *parent; // last path

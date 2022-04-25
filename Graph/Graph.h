@@ -49,12 +49,14 @@ class Graph{
 		virtual bool bellman_ford(int source) = 0;
 		virtual void floyd_warshall() = 0;
 		
-		//Flow Networks是一個weighted,directed graph，其edge(X,Y)具有非負的capacity，c(X,Y)?0，如圖二(a)。
+		//Flow Networks是一個weighted,directed graph，其edge(X,Y)具有非負的capacity，c(X,Y) >= 0，如圖二(a)。
 		//(此處以capacity取代weight，capacity就是「水管孔徑」。)
 		// ref: https://alrightchiu.github.io/SecondRound/flow-networksmaximum-flow-ford-fulkerson-algorithm.html
 		//maximum flow
-		virtual void FordFulkerson() = 0; 
+		virtual double EdmondsKarp(int s,int t) = 0; // used for directed weight graph
 		
+		
+		//virtual void topologySort(); // not a total order sort;
 		
 		int nodes; // nodes 表 目前 graph 最大上限的節點數量 
 		DSU dsu;
