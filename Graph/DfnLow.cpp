@@ -1,9 +1,9 @@
-#include "LinkedGraph.h"
+#include "MatrixWGraph.h"
 #include <bits/stdc++.h>
 using namespace std;
 
 int main(){
-	LinkedGraph test(10);
+	MatrixWGraph test(10);
 	test.InsertEdge(0,1);
 	test.InsertEdge(4,3);
 	test.InsertEdge(1,2);
