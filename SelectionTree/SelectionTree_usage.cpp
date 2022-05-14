@@ -12,7 +12,7 @@ int main(){
 	winnerTree.show_tree();
 	
 	cout << winnerTree.extract() << endl;
-	winnerTree.show_tree();
+	winnerTree.show_trede();
 	winnerTree.Insert(5);
 	winnerTree.show_tree();
 	
