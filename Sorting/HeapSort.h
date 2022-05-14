@@ -2,7 +2,7 @@
 #include <functional>
 #include <algorithm>
 #ifndef HeapSort_H
-#define HeapSort_H // for iterator
+#define HeapSort_H 
 #include "../Utils/TreeTextHelper.cpp"
 // heap sort is an in-place algorithm
 // so that using the ordinary array as inner member array

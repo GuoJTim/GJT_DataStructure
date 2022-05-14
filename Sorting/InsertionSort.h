@@ -2,8 +2,8 @@
 #include <functional>
 #include <algorithm>
 #ifndef InsertionSort_H
-#define InsertionSort_H // for iterator
-// heap sort is an in-place algorithm
+#define InsertionSort_H 
+// insertion sort is an in-place algorithm
 // so that using the ordinary array as inner member array
 template <class T,class U = std::less<T> >
 class InsertionSort{

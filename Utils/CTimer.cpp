@@ -4,14 +4,15 @@
 #include <windows.h>
 #include <stdlib.h>
 
-class timer{
+class CTimer{
 	public:
 		static bool initial;
 		static LARGE_INTEGER startTime, endTime, fre;
 		static double time;
 		static void init(){
 			if (initial) return;
-			QueryPerformanceFrequency(&timer::fre);
+			QueryPerformanceFrequency(&CTimer::fre);
+			initial = true;
 		}
 		static void start_timer() {
 			if (!initial) return;
@@ -30,10 +31,10 @@ class timer{
 		return timeformat;
 	}
 };
-LARGE_INTEGER timer::startTime;
-LARGE_INTEGER timer::endTime;
-LARGE_INTEGER timer::fre;
-double timer::time = 0;
-bool timer::initial = false;
+LARGE_INTEGER CTimer::startTime;
+LARGE_INTEGER CTimer::endTime;
+LARGE_INTEGER CTimer::fre;
+double CTimer::time = 0;
+bool CTimer::initial = false;
 
 #endif
