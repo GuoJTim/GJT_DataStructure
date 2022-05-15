@@ -23,8 +23,10 @@ void MergeSort<T,U>::merge(int p,int q,int r){
 	T *L = new T[n1+1];
 	T *R = new T[n2+1];
 	
-	for (int i = 0 ; i < n1 ;i++) L[i] = arr[p+i];
-	for (int i = 0 ; i < n2 ;i++) R[i] = arr[q+i+1];
+	std::copy(arr.begin()+p,arr.begin()+p+n1,L);
+	std::copy(arr.begin()+q+1,arr.begin()+q+1+n2,R);
+	//for (int i = 0 ; i < n1 ;i++) L[i] = arr[p+i];
+	//for (int i = 0 ; i < n2 ;i++) R[i] = arr[q+i+1];
 	
 	// limit value
 	//L[n1] = 99999;

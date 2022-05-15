@@ -9,12 +9,10 @@ HeapSort<T,U>::HeapSort(std::vector<T> &arr){
 
 template <class T,class U>
 void HeapSort<T,U>::Sort(){
-	int size = arr.size();//get size
 	BuildHeap();
-	for (int i = size - 1 ; i>= 0 ; i--){
-		std::swap(arr[0],arr[size-1]);
-		Heapify(0,size-1);
-		size--;
+	for (int i = arr.size() - 1 ; i>= 0 ; i--){
+		std::swap(arr[0],arr[i]);
+		Heapify(0,i);
 	}
 }
 

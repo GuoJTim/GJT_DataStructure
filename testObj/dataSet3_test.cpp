@@ -14,6 +14,32 @@ unsigned long long int conv(string s){
 	return u;
 }
 
+template <typename T>
+int partition(vector<T> &A, int p, int r) {
+    T x = A[r];
+    int i = p - 1;
+    for (int j = p; j < r; j++) {
+        if (A[j] < x || A[j] == x) {
+            i = i + 1;
+            swap(A[i], A[j]);
+        }
+    }
+    swap(A[i + 1], A[r]);
+    return i + 1;
+}
+template <typename T>
+void quicksort(vector<T> &A, int p, int r) {
+    if (p < r) {
+        int q = partition(A, p, r);
+        quicksort(A, p, q - 1);
+        quicksort(A, q + 1, r);
+    }
+}
+template <typename T>
+void Quick_Sort(vector<T> &arr) {
+    quicksort(arr, 0, arr.size() - 1);
+}
+
 class DataSet{
 	public:
 		string Region;
@@ -58,14 +84,14 @@ int main(){
 	rd.readAsObjectVector(file);
 	
 	cout << "data:" << file.size() << endl;
-	/*
-	cout << "InsertionSort:";
-	InsertionSort<DataSet,greater<DataSet>> is(file);
 	
-	CTimer::start_timer();
-	is.Sort();
-	CTimer::stop_timer();
-	cout << CTimer::getFormat() << endl;*/ 
+//	cout << "InsertionSort:";
+//	InsertionSort<DataSet,greater<DataSet>> is(file);
+//	
+//	CTimer::start_timer();
+//	is.Sort();
+//	CTimer::stop_timer();
+//	cout << CTimer::getFormat() << endl;
 	
 	cout << "MergeSort(recursion):";
 	MergeSort<DataSet> ms(file);
@@ -107,7 +133,10 @@ int main(){
 	
 	
 	
-	
+	CTimer::start_timer();
+	Quick_Sort(file);
+	CTimer::stop_timer();
+	cout << CTimer::getFormat() << endl;
 	
 	
 }
