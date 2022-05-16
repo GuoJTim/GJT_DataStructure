@@ -1,46 +1,7 @@
 #include "../Sorting/everything.h"
+#include "../Sorting/SortData.h"
 #include "../Utils/CTimer.cpp"
-
-#include <string>
-#include <sstream>
-#include <vector>
-#include <fstream>
-#include <iostream>
-template <class T>
-class ExcelReader{
-	private:
-		ifstream excelFile;
-	public:
-		ExcelReader(string fileName);
-		void readAsObjectVector(vector<T> &outputVector);
-	
-};
-template <class T>
-ExcelReader<T>::ExcelReader(string filename){
-	excelFile.open(filename,ifstream::in);
-}
-
-template <class T>
-void ExcelReader<T>::readAsObjectVector(vector<T> &outputObj){
-	string line, field;
-	vector<vector<string>> array;
-	vector<string> v;
-	bool skipName = true;
-	while(getline(excelFile,line)){
-		v.clear();
-		stringstream str(line);
-		while(getline(str,field,',')){
-			v.push_back(field);
-		}
-		if (skipName){
-			skipName = false;
-			continue;
-		}
-		outputObj.push_back(stoull(v[4]));
-		array.push_back(v);
-	}
-}
-
+#include "../Utils/ExcelReader.h"
 
 #include <iostream>
 #include <ostream>
@@ -80,28 +41,68 @@ void Quick_Sort(vector<T> &arr) {
     quicksort(arr, 0, arr.size() - 1);
 }
 
+class DataSet{
+	public:
+		string Region;
+		string Item_Type;
+		string Order_Prior;
+		string Order_Date;
+		unsigned long long Orider_ID;
+		DataSet(){
+			//for heap sort init
+		}
+		DataSet(vector<string> obj){
+			Region = obj[0];
+			Item_Type = obj[1];
+			Order_Prior = obj[2];
+			Order_Date = obj[3];
+			Orider_ID = conv(obj[4]);
+		}
+		bool operator>(const DataSet& a) const{
+			return this->Orider_ID > a.Orider_ID;
+		}
+		bool operator<(const DataSet& a) const{
+			return this->Orider_ID < a.Orider_ID;
+		}
+		bool operator==(const DataSet& a) const{
+			return this->Orider_ID == a.Orider_ID;
+		}
+		
+		friend std::ostream& operator<<(std::ostream& ,DataSet&); // for cout
+};
 
+std::ostream& operator<<(std::ostream& os,SortData<DataSet> &obj){
+	os << *obj.pointer;
+	return os;
+}
 
+ostream& operator<<(ostream& os,DataSet &obj){
+	os << obj.Region << " " << obj.Item_Type << " " << obj.Order_Prior << " " << obj.Order_Date << " " << obj.Orider_ID;
+	return os;
+}
 
 int main(){
-	CTimer::init();
-	ExcelReader<long long int> rd("1000000 Sales Records.csv");
 	
-	vector<long long int> file;
+	CTimer::init();
+	ExcelReader<DataSet> rd("1000000 Sales Records.csv");
+	
+	vector<DataSet> file;
 	rd.readAsObjectVector(file);
 	
-	cout << "data:" << file.size() << endl;
+	vector<SortData<DataSet>> fadeFile;
+	fadeFile = SortData<DataSet>::createData(file);
+	cout << "data:" << fadeFile.size() << endl;
 	
-//	cout << "InsertionSort:";
-//	InsertionSort<DataSet,greater<DataSet>> is(file);
-//	
-//	CTimer::start_timer();
-//	is.Sort();
-//	CTimer::stop_timer();
-//	cout << CTimer::getFormat() << endl;
+	cout << "InsertionSort:";
+	InsertionSort<SortData<DataSet>,greater<SortData<DataSet>>> is(fadeFile);
+	
+	CTimer::start_timer();
+	is.Sort();
+	CTimer::stop_timer();
+	cout << CTimer::getFormat() << endl;
 	
 	cout << "MergeSort(recursion):";
-	MergeSort<long long int> ms(file);
+	MergeSort<SortData<DataSet>> ms(fadeFile);
 	
 	CTimer::start_timer();
 	ms.Sort();
@@ -111,7 +112,7 @@ int main(){
 	cout << CTimer::getFormat() << endl;
 	
 	cout << "QuickSort(pivot right):";
-	QuickSort<long long int> qs(file);
+	QuickSort<SortData<DataSet>> qs(fadeFile);
 	
 	CTimer::start_timer();
 	qs.Sort();
@@ -120,7 +121,7 @@ int main(){
 	cout << CTimer::getFormat() << endl;
 	
 	cout << "QuickSort(median of three):";
-	QuickSort<long long int> qs2(file);
+	QuickSort<SortData<DataSet>> qs2(fadeFile);
 	
 	CTimer::start_timer();
 	qs2.SortWithMedianOfThree();
@@ -129,7 +130,7 @@ int main(){
 	cout << CTimer::getFormat() << endl;
 	
 	cout << "HeapSort:";
-	HeapSort<long long int> hs(file);
+	HeapSort<SortData<DataSet>> hs(fadeFile);
 	
 	CTimer::start_timer();
 	hs.Sort();
@@ -141,7 +142,7 @@ int main(){
 	
 	
 	CTimer::start_timer();
-	Quick_Sort(file);
+	Quick_Sort(fadeFile);
 	CTimer::stop_timer();
 	cout << CTimer::getFormat() << endl;
 	

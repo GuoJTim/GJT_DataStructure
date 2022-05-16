@@ -2,9 +2,10 @@
 #include <iostream>
 template <class T,class U>
 HeapSort<T,U>::HeapSort(std::vector<T> &arr){
-	for (T obj:arr){
-		HeapInsert(obj);	
-	}
+	this->arr = arr;
+	//for (T& obj:arr){
+	//	HeapInsert(obj);	
+	//}
 }
 
 template <class T,class U>
@@ -25,7 +26,7 @@ void HeapSort<T,U>::BuildHeap(){
 }
 
 template <class T,class U>
-void HeapSort<T,U>::HeapIncreaseKey(int i, T key){
+void HeapSort<T,U>::HeapIncreaseKey(int i, T &key){
 	if (cmp()(arr[i],key) && i != arr.size()-1){
 		std::cout << "new key is smaller than current key" << std::endl;
 	}
@@ -87,7 +88,7 @@ void HeapSort<T,U>::HeapDelete(int i){
 
 
 template <class T,class U>
-void HeapSort<T,U>::HeapInsert(T key){
+void HeapSort<T,U>::HeapInsert(T& key){
 	arr.resize(arr.size()+1);
 	//A[A.heap-size] = -\inf
 	HeapIncreaseKey(arr.size()-1,key);

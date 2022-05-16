@@ -11,7 +11,7 @@ class HeapSort{
 	private:
 		typedef U cmp; 	
 		void BuildHeap();
-		void HeapIncreaseKey(int i, T key);
+		void HeapIncreaseKey(int i, T& key);
 		void Heapify(int i,int heapsize);
 		int find_target(T &data,int current);
 		int PARENT(int i){ 
@@ -32,7 +32,7 @@ class HeapSort{
 		void show_list(bool asLine = false);
 		void HeapDelete(int i); // delete index element
 		void HeapDeleteElement(T &obj); // delete object
-		void HeapInsert(T key); // insert new element
+		void HeapInsert(T &key); // insert new element
 		T HeapExtract(); // extract the max or min 
 		T Top(); // get top
 		bool empty(); // to check empty

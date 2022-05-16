@@ -43,7 +43,7 @@ class DataSet{
 };
 
 ostream& operator<<(ostream& os,DataSet &obj){
-	os << obj.bbl;
+	os << obj.confirmation_num << " " << obj.bbl << " " << obj.lab_name << " " << obj.nta;
 	return os;
 }
 
@@ -101,7 +101,6 @@ int main(){
 	CTimer::start_timer();
 	ms.Sort();
 	CTimer::stop_timer();
-	
 	//ms.show_list(true);
 	cout << CTimer::getFormat() << endl;
 	
