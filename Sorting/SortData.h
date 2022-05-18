@@ -3,6 +3,8 @@
 #include <vector>
 #include <ostream>
 
+#include <iostream>
+using namespace std;
 
 template <class T>
 class SortData{
@@ -16,6 +18,7 @@ class SortData{
 			return sd;
 		}
 		SortData(){
+			cout << "calling default constructor" << endl;
 			// for init constructor
 		}
 		SortData(T &data){
@@ -24,6 +27,14 @@ class SortData{
 			// swapping pointer instead of swapping data
 			pointer = &data;
 		}
+		std::string& operator[](int index){
+			return (*pointer)[index];
+		}
+		
+		operator T(){
+			return *pointer;
+		}
+		
 		bool operator>(const SortData& a) const{
 			return *(this->pointer) > *(a.pointer);
 		}
@@ -40,7 +51,6 @@ class SortData{
 			return *(this->pointer) == *(a.pointer);
 		}
 		friend std::ostream& operator<<(std::ostream& ,SortData&); // for cout
-		
 };
 
 #endif

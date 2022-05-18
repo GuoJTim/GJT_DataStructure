@@ -3,6 +3,7 @@
 #include <iostream>
 #include <windows.h>
 #include <stdlib.h>
+#include <functional>
 
 class CTimer{
 	public:
@@ -28,8 +29,16 @@ class CTimer{
 			char tmp[100];
 			sprintf(tmp, "this action spends about %f second(s).",(float)time);// string format
 			std::string timeformat(tmp);
-		return timeformat;
-	}
+			return timeformat;
+		}
+		static void calc(std::function<void()> func){
+			if (!initial) init();
+			start_timer();
+			func();
+			stop_timer();
+			std::cout << getFormat() << std::endl;
+		}
+	
 };
 LARGE_INTEGER CTimer::startTime;
 LARGE_INTEGER CTimer::endTime;

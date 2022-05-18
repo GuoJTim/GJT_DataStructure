@@ -9,10 +9,14 @@ InsertionSort<T,U>::InsertionSort(std::vector<T> &arr,bool autoSort){
 		}
 	}
 }
+#include <iostream>
+using namespace std;
+
 
 template <class T,class U>
 void InsertionSort<T,U>::Sort(){
 	for (int j = 1 ; j < arr.size();j++){
+		//if (j % 10000 == 0)cout << j << endl;
 		T key = arr[j];
 		int i = j - 1;
 		while(i >= 0 && cmp()(key,arr[i])){

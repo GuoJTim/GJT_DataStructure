@@ -94,13 +94,15 @@ int main(){
 	fadeFile = SortData<DataSet>::createData(file);
 	cout << "data:" << fadeFile.size() << endl;
 	
-//	cout << "InsertionSort:";
-//	InsertionSort<DataSet,greater<DataSet>> is(file);
-//	
-//	CTimer::start_timer();
-//	is.Sort();
-//	CTimer::stop_timer();
-//	cout << CTimer::getFormat() << endl;
+	cout << "InsertionSort:";
+	InsertionSort<DataSet,greater<DataSet>> is(file);
+	cout << endl;cout << endl;
+	CTimer::start_timer();
+	is.Sort();
+	CTimer::stop_timer();
+	cout << CTimer::getFormat() << endl;
+	
+	return 0 ;
 	
 	cout << "MergeSort(recursion):";
 	MergeSort<SortData<DataSet>> ms(fadeFile);

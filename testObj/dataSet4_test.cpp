@@ -81,6 +81,16 @@ ostream& operator<<(ostream& os,DataSet &obj){
 	return os;
 }
 
+vector<long long int> lmao(vector<DataSet> ds){
+	vector<long long int> wtf;
+	for(DataSet &f:ds){
+		wtf.push_back(f.Orider_ID);
+	}
+	return wtf;
+}
+
+
+
 int main(){
 	
 	CTimer::init();
@@ -93,6 +103,17 @@ int main(){
 	fadeFile = SortData<DataSet>::createData(file);
 	cout << "data:" << fadeFile.size() << endl;
 	
+	
+	vector<long long int> wt = lmao(file);
+	cout << "InsertionSort:";
+	InsertionSort<long long int,greater<long long int>> is3(wt);
+	
+	CTimer::start_timer();
+	is3.Sort();
+	CTimer::stop_timer();
+	cout << CTimer::getFormat() << endl;
+	
+	
 	cout << "InsertionSort:";
 	InsertionSort<SortData<DataSet>,greater<SortData<DataSet>>> is(fadeFile);
 	
@@ -101,6 +122,7 @@ int main(){
 	CTimer::stop_timer();
 	cout << CTimer::getFormat() << endl;
 	
+	return 0 ;
 	cout << "MergeSort(recursion):";
 	MergeSort<SortData<DataSet>> ms(fadeFile);
 	
