@@ -10,7 +10,7 @@ template <class T,class U = std::less<T> >
 class HeapSort{
 	private:
 		typedef U cmp; 	
-		void BuildHeap(std::vector<T> &arr);
+		void BuildHeap(std::vector<T> &arr,int begin,int end);
 		void HeapIncreaseKey(std::vector<T> &arr,int i, T& key);
 		void Heapify(std::vector<T> &arr,int i,int heapsize);
 		int find_target(std::vector<T> &arr,T &data,int current);

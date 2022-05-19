@@ -32,13 +32,10 @@ int main(){
 	vector<SortData<DataSet>> fastDataSet = SortData<DataSet>::createData(dataSet.dataSet);
 	cout << "loaded" << endl;
 	vector<long long int> a = lmao(dataSet.dataSet);
-	
 	IntroSort<long long int> fast(a);
 	CTimer::calc([&](){
 		fast.Sort();
 	});
-	
-	
 	IntroSort<SortData<DataSet>> is2(fastDataSet);
 	CTimer::calc([&](){
 		is2.Sort();

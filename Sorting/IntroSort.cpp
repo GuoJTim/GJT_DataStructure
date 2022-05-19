@@ -49,7 +49,7 @@ int IntroSort<T,U>::Partition(vector<T> &arr,int p,int r){
 
 template <class T,class U>
 void IntroSort<T,U>::Sort(vector<T> &arr){
-	int depthLimit = 2*log(arr.size()-1);
+	int depthLimit = 2*floor(log(arr.size()-1));
 	introsort(arr,0,arr.size()-1,depthLimit);
 }
 template <class T,class U>
