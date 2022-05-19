@@ -1,25 +1,25 @@
 #include "QuickSort.h"
 #include <iostream>
 template <class T,class U>
-void QuickSort<T,U>::quicksort(int p,int r,int(*partfunc)(std::vector<T> &,int,int)){
+void QuickSort<T,U>::quicksort(std::vector<T> &arr,int p,int r,int(*partfunc)(std::vector<T> &,int,int)){
 	if(p < r){
 		int q;
-		if (partfunc == nullptr) q = Partition(p,r); //initial pivot choose function
+		if (partfunc == nullptr) q = Partition(arr,p,r); //initial pivot choose function
 		else q = (*partfunc)(arr,p,r);
-		quicksort(p,q-1);
-		quicksort(q+1,r);
+		quicksort(arr,p,q-1);
+		quicksort(arr,q+1,r);
 	}
 }
 
 template <class T,class U>
-void QuickSort<T,U>::quicksortWithMedianOfThree(int p,int r){
+void QuickSort<T,U>::quicksortWithMedianOfThree(std::vector<T> &arr,int p,int r){
 	if(p < r){
 		int q;
-		int m = MedianOfThree(p,r);
+		int m = MedianOfThree(arr,p,r);
 		std::swap(arr[m],arr[p]);
-		q = Partition(p,r); 
-		quicksort(p,q-1);
-		quicksort(q+1,r);
+		q = Partition(arr,p,r); 
+		quicksort(arr,p,q-1);
+		quicksort(arr,q+1,r);
 	}
 }
 
@@ -28,8 +28,13 @@ QuickSort<T,U>::QuickSort(std::vector<T> &arr){
 	this->arr = arr;
 }
 
+
 template <class T,class U>
-int QuickSort<T,U>::Partition(int p,int r){
+QuickSort<T,U>::QuickSort(){
+}
+
+template <class T,class U>
+int QuickSort<T,U>::Partition(std::vector<T> &arr,int p,int r){
 	T x = arr[r];
 	int i = p-1;
 	for(int j = p ; j < r;j++){
@@ -43,17 +48,27 @@ int QuickSort<T,U>::Partition(int p,int r){
 }
 
 template <class T,class U>
+void QuickSort<T,U>::Sort(std::vector<T> &arr,int(*partition)(std::vector<T> &,int,int)){
+	quicksort(arr,0,arr.size()-1,partition);
+}
+
+template <class T,class U>
 void QuickSort<T,U>::Sort(int(*partition)(std::vector<T> &,int,int)){
-	quicksort(0,arr.size()-1,partition);
+	Sort(arr,partition);
 }
 
 template <class T,class U>
 void QuickSort<T,U>::SortWithMedianOfThree(){
-	quicksortWithMedianOfThree(0,arr.size()-1);
+	SortWithMedianOfThree(arr);
 }
 
 template <class T,class U>
-int QuickSort<T,U>::MedianOfThree(int p,int r){
+void QuickSort<T,U>::SortWithMedianOfThree(std::vector<T> &arr){
+	quicksortWithMedianOfThree(arr,0,arr.size()-1);
+}
+
+template <class T,class U>
+int QuickSort<T,U>::MedianOfThree(std::vector<T> &arr,int p,int r){
 	int middle = (p+r) / 2;
 	// a < b < c
 	int pivot_index;

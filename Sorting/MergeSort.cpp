@@ -7,17 +7,22 @@ MergeSort<T,U>::MergeSort(std::vector<T> &arr){
 }
 
 template <class T,class U>
-void MergeSort<T,U>::mergesort(int p,int r){
+MergeSort<T,U>::MergeSort(){
+
+}
+
+template <class T,class U>
+void MergeSort<T,U>::mergesort(std::vector<T> &arr,int p,int r){
 	if (p < r){
 		int q = (p+r) / 2;
-		mergesort(p,q);
-		mergesort(q+1,r);
-		merge(p,q,r);
+		mergesort(arr,p,q);
+		mergesort(arr,q+1,r);
+		merge(arr,p,q,r);
 	}
 }
 
 template <class T,class U>
-void MergeSort<T,U>::merge(int p,int q,int r){
+void MergeSort<T,U>::merge(std::vector<T> &arr,int p,int q,int r){
 	int n1 = q-p+1;
 	int n2 = r-q;
 	T *L = new T[n1+1];
@@ -55,8 +60,13 @@ void MergeSort<T,U>::merge(int p,int q,int r){
 
 
 template <class T,class U>
+void MergeSort<T,U>::Sort(std::vector<T> &arr){
+	mergesort(arr,0,arr.size()-1);
+}
+
+template <class T,class U>
 void MergeSort<T,U>::Sort(){
-	mergesort(0,arr.size()-1);
+	Sort(arr);
 }
 
 template <class T,class U>

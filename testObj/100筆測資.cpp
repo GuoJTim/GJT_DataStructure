@@ -13,6 +13,15 @@ std::ostream& operator<<(std::ostream& os,SortData<DataSet> &obj){
 	return os;
 }
 
+
+vector<long long int> lmao(vector<DataSet> ds){
+    vector<long long int> wtf;
+    for(DataSet &f:ds){
+        wtf.push_back(f.val);
+    }
+    return wtf;
+}
+
 int main(){
 	CTimer::init();
 	ExcelReader rd("1000000 Sales Records.csv");
@@ -21,19 +30,33 @@ int main(){
 	
 	vector<SortData<DataSet>> fastDataSet = SortData<DataSet>::createData(dataSet.dataSet);
 	
+	vector<long long int> a = lmao(dataSet.dataSet);
 	
-	InsertionSort<SortData<DataSet>> is2(fastDataSet);
+	HeapSort<long long int> fast(a);
+	CTimer::calc([&](){
+		fast.Sort();
+	});
+	
+	HeapSort<SortData<DataSet>> is2(fastDataSet);
 	CTimer::calc([&](){
 		is2.Sort();
 	});
 	
 	
 	
-	InsertionSort<DataSet> is(dataSet.dataSet);
+	HeapSort<DataSet> is(dataSet.dataSet);
 	CTimer::calc([&](){
 		is.Sort();
 	});
 	
+	QuickSort<SortData<DataSet>> qs(fastDataSet);
+	CTimer::calc([&](){
+		qs.SortWithMedianOfThree();
+	});
+	
+	CTimer::calc([&](){
+		sort(a.begin(),a.end());
+	});
 	
 	
 	

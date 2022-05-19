@@ -9,13 +9,28 @@ InsertionSort<T,U>::InsertionSort(std::vector<T> &arr,bool autoSort){
 		}
 	}
 }
+
+template <class T,class U>
+InsertionSort<T,U>::InsertionSort(){
+	
+}
 #include <iostream>
 using namespace std;
 
-
 template <class T,class U>
 void InsertionSort<T,U>::Sort(){
-	for (int j = 1 ; j < arr.size();j++){
+	Sort(arr);
+}
+
+
+template <class T,class U>
+void InsertionSort<T,U>::Sort(std::vector<T> &arr){
+	Sort(arr,0,arr.size()-1);
+}
+
+template <class T,class U>
+void InsertionSort<T,U>::Sort(std::vector<T> &arr,int begin,int end){
+	for (int j = begin+1 ; j <= end;j++){
 		//if (j % 10000 == 0)cout << j << endl;
 		T key = arr[j];
 		int i = j - 1;
