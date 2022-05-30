@@ -18,7 +18,6 @@ class SortData{
 			return sd;
 		}
 		SortData(){
-			cout << "calling default constructor" << endl;
 			// for init constructor
 		}
 		SortData(T &data){

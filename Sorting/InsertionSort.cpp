@@ -34,7 +34,7 @@ void InsertionSort<T,U>::Sort(std::vector<T> &arr,int begin,int end){
 		//if (j % 10000 == 0)cout << j << endl;
 		T key = arr[j];
 		int i = j - 1;
-		while(i >= 0 && cmp()(key,arr[i])){
+		while(i >= begin && cmp()(key,arr[i])){
 			arr[i+1] = arr[i];
 			i = i - 1;
 		}

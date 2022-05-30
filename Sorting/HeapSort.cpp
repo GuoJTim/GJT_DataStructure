@@ -17,7 +17,7 @@ void HeapSort<T,U>::Sort(std::vector<T> &arr,int begin,int end){
 	BuildHeap(arr,begin,end);
 	for (int i = end ; i>= begin ; i--){
 		std::swap(arr[begin],arr[i]);
-		Heapify(arr,begin,i);
+		Heapify(arr,begin,i,begin);
 	}
 }
 
@@ -28,13 +28,17 @@ void HeapSort<T,U>::Sort(){
 template <class T,class U>
 void HeapSort<T,U>::Sort(std::vector<T> &arr){
 	Sort(arr,0,arr.size()-1);
+	
 }
 
 template <class T,class U>
 void HeapSort<T,U>::BuildHeap(std::vector<T> &arr,int begin,int end){
 	//int size = arr.size();//get size
-	for (int i = (end / 2 - 1) ; i >= begin ; i--){
-		Heapify(arr,i,end);
+	for (int i = begin + (end-begin)/2 ; i >= begin ; i--){
+		//cout << i << endl;
+		Heapify(arr,i,end+1,begin);
+		//for (int i : arr) cout << i << " ";
+		//cout << endl;
 	}
 }
 
@@ -52,9 +56,9 @@ void HeapSort<T,U>::HeapIncreaseKey(std::vector<T> &arr,int i, T &key){
 
 
 template <class T,class U>
-void HeapSort<T,U>::Heapify(std::vector<T> &arr,int i,int heapsize){
-	int l = LEFT(i);
-	int r = RIGHT(i);
+void HeapSort<T,U>::Heapify(std::vector<T> &arr,int i,int heapsize,int begin){
+	int l = LEFT(i)-begin;
+	int r = RIGHT(i)-begin;
 	int v = i;
 	
 	if (l < heapsize && cmp()(arr[i],arr[l])){
@@ -68,7 +72,7 @@ void HeapSort<T,U>::Heapify(std::vector<T> &arr,int i,int heapsize){
 		T t = arr[i];
 		arr[i] = arr[v];
 		arr[v] = t;
-		Heapify(arr,v,heapsize); 
+		Heapify(arr,v,heapsize,begin); 
 	}
 }
 

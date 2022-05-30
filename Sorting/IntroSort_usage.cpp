@@ -1,6 +1,17 @@
 #include "IntroSort.h"
 #include "../Utils/CTimer.cpp"
 #include <iostream>
+
+template <typename T>
+bool checkSorted(vector<T>& data) {
+    for (size_t i = 1; i < data.size(); i++) {
+        if (data[i - 1] < data[i]) {
+            return false;
+        }
+    }
+    return true;
+}
+
 using namespace std;
 int main(){
 	vector<int> arr({
@@ -11,5 +22,6 @@ int main(){
 	CTimer::calc([&](){
 		test.Sort();
 	});
+	cout << checkSorted(test.arr) << endl;
 	test.show_list();
 }

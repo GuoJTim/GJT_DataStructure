@@ -1,9 +1,11 @@
 #include "IntroSort.h"
 #include <iostream>
+
+
 template <class T,class U>
 void IntroSort<T,U>::introsort(std::vector<T> &arr,int begin,int end,int depth){
 	int size = end - begin;
-	
+	if (begin > end) return;
 	if(size < 16){
 		InsertionSort<T,U> is;
 		is.Sort(arr,begin,end);
@@ -12,7 +14,7 @@ void IntroSort<T,U>::introsort(std::vector<T> &arr,int begin,int end,int depth){
 	
 	if (depth == 0){
 		HeapSort<T,U> hs;
-		hs.Sort(arr,begin,end+1);
+		hs.Sort(arr,begin,end);//
 		return;
 	}
 	

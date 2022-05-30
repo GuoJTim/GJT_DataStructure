@@ -12,7 +12,7 @@ class HeapSort{
 		typedef U cmp; 	
 		void BuildHeap(std::vector<T> &arr,int begin,int end);
 		void HeapIncreaseKey(std::vector<T> &arr,int i, T& key);
-		void Heapify(std::vector<T> &arr,int i,int heapsize);
+		void Heapify(std::vector<T> &arr,int i,int heapsize,int begin=0);
 		int find_target(std::vector<T> &arr,T &data,int current);
 		int PARENT(int i){ 
 			return (i-1)/2;

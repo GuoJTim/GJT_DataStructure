@@ -10,7 +10,7 @@ int main(){
 	
 	InsertionSort<int> test;
 	CTimer::calc([&](){
-		test.Sort(arr,1,2);
+		test.Sort(arr,1,7);
 	});
 	for(int i : arr) cout << i << " ";
 	cout << endl;
@@ -19,7 +19,7 @@ int main(){
 	});
 	HeapSort<int> test2;
 	CTimer::calc([&](){
-		test2.Sort(arr,1,2);
+		test2.Sort(arr,6,7);
 	});
 	for(int i : arr) cout << i << " ";
 }
