@@ -21,6 +21,26 @@ void MergeSort<T,U>::mergesort(std::vector<T> &arr,int p,int r){
 	}
 }
 
+
+template <class T,class U>
+void MergeSort<T,U>::IterativeSort(){
+	IterativeSort(this->arr);
+}
+#include <algorithm>
+
+template <class T,class U>
+void MergeSort<T,U>::IterativeSort(std::vector<T> &arr){
+	int merge_size;
+	int index;
+	for(merge_size = 1 ; merge_size <= arr.size()-1 ;merge_size*=2){
+		for(index = 0 ; index < arr.size()-1;index+= merge_size*2){
+			int mid = std::min(index + merge_size-1 ,(int)arr.size()-1);
+			int right = std::min(index + 2*merge_size -1,(int)arr.size()-1);
+			merge(arr,index,mid,right);
+		}
+	}
+}
+
 template <class T,class U>
 void MergeSort<T,U>::merge(std::vector<T> &arr,int p,int q,int r){
 	int n1 = q-p+1;

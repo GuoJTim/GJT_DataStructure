@@ -14,7 +14,9 @@ class MergeSort{
 		MergeSort(std::vector<T> &arr);
 		MergeSort();
 		void Sort(); // inner sort
+		void IterativeSort(); // inner sort
 		void Sort(std::vector<T> &arr); // sorting driver
+		void IterativeSort(std::vector<T> &arr); // sorting driver
 		void show_list(bool asLine = false);
 };
 #include "MergeSort.cpp"

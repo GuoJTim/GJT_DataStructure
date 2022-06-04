@@ -31,6 +31,7 @@ QuickSort<T,U>::QuickSort(std::vector<T> &arr){
 
 template <class T,class U>
 QuickSort<T,U>::QuickSort(){
+	
 }
 
 template <class T,class U>
@@ -56,6 +57,8 @@ template <class T,class U>
 void QuickSort<T,U>::Sort(int(*partition)(std::vector<T> &,int,int)){
 	Sort(arr,partition);
 }
+
+
 
 template <class T,class U>
 void QuickSort<T,U>::SortWithMedianOfThree(){

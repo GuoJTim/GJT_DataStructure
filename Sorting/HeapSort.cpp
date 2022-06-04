@@ -4,7 +4,7 @@ template <class T,class U>
 HeapSort<T,U>::HeapSort(std::vector<T> &arr){
 	this->arr = arr;
 	//for (T& obj:arr){
-	//	HeapInsert(obj);	
+	//	HeapInsert(obj);
 	//}
 }
 template <class T,class U>
