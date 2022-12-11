@@ -126,5 +126,5 @@ int main(){
 	cout << "Insert 10";
 	min_heap.Insert(10);
 	min_heap.show_tree();//show tree
-	
+	//
 }
