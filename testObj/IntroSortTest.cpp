@@ -12,10 +12,10 @@ bool ONLYNUM = false;
 #include <ostream>
 using namespace std;
 
-template <typename T>
+template <typename T,typename U = less<T>>
 bool checkSorted(vector<T>& data) {
     for (size_t i = 1; i < data.size(); i++) {
-        if (data[i - 1] > data[i]) {
+        if (U()(data[i],data[i - 1])) {
             return false;
         }
     }
@@ -59,37 +59,39 @@ void solve(string fileName,int sortHeader){
 	
 	cout << "IntroSort:" << endl;
 	if(FULLDATA){
-		IntroSort<DataSet> its1(csvDataSet.dataSet);
+		IntroSort<DataSet> its1;
 		CTimer::calc([&](){
-			its1.Sort();
+			its1.Sort(csvDataSet.dataSet);
 		},"\t(FULLDATA) spents %f second(s).");
-		if (checkSorted(its1.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(csvDataSet.dataSet)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}
 	if(PTRDATA){
-		IntroSort<SortData<DataSet>> its2(ptrDataSet);
+		IntroSort<SortData<DataSet>> its2;
 		CTimer::calc([&](){
-			its2.Sort();
+			its2.Sort(ptrDataSet);
 		},"\t(PTRDATA) spents %f second(s).");
-		if (checkSorted(its2.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(ptrDataSet)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}
 	if(ONLYNUM){
-		IntroSort<long long int> its3(LLds);
+		IntroSort<long long int> its3;
 		CTimer::calc([&](){
-			its3.Sort();
+			its3.Sort(LLds);
 		},"\t(ONLYNUM) spents %f second(s).");
-		if (checkSorted(its3.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(LLds)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}	
+	
 }
 
 
 
 int main(int argc, char *argv[]){
+	PTRDATA = true;
 	CTimer::init();
 	cout << "---------------------------------------------" << endl;
-	int type = 1;
+	int type = 2;
 	if (argc >= 2) type =atoi(argv[1]); 
 	if (argc > 2){
 		for (int i = 2 ; i < argc;i++){

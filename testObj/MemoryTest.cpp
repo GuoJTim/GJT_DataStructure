@@ -65,5 +65,8 @@ void ExecuteAndWait(wstring toto){
 int main(){
     //<SortType>Test.exe <data set Type>
     //c.g.  HeapSortTest.exe 1  -> HeapSort 100 dataset
-    ExecuteAndWait(L"IntroSortTest.exe 3 ONLYNUM");
+    ExecuteAndWait(L"InsertionSortTest.exe 1 FULLDATA");
+    ExecuteAndWait(L"MergeSortTest.exe 1 FULLDATA");
+    ExecuteAndWait(L"QuickSortTest.exe 1 FULLDATA");
+    ExecuteAndWait(L"HeapSortTest.exe 1 FULLDATA");
 }

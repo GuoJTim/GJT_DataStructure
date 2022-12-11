@@ -1,6 +1,6 @@
 #include "HeapSort.h"
 #include "InsertionSort.h"
-#include "../Utils/CTimer.cpp"
+#include "../Utils/CTimer.h"
 #include <iostream>
 using namespace std;
 int main(){
@@ -19,7 +19,7 @@ int main(){
 	});
 	HeapSort<int> test2;
 	CTimer::calc([&](){
-		test2.Sort(arr,6,7);
+		test2.Sort(arr,5,7);
 	});
 	for(int i : arr) cout << i << " ";
 }

@@ -12,10 +12,10 @@ bool ONLYNUM = false;
 #include <ostream>
 using namespace std;
 
-template <typename T>
+template <typename T,typename U = less<T>>
 bool checkSorted(vector<T>& data) {
     for (size_t i = 1; i < data.size(); i++) {
-        if (data[i - 1] > data[i]) {
+        if (U()(data[i],data[i - 1])) {
             return false;
         }
     }
@@ -59,53 +59,53 @@ void solve(string fileName,int sortHeader){
 	
 	cout << "QuickSort:" << endl;
 	if(FULLDATA){
-		QuickSort<DataSet> qs1(csvDataSet.dataSet);
+		QuickSort<DataSet> qs1;
 		CTimer::calc([&](){
-			qs1.Sort();
+			qs1.Sort(csvDataSet.dataSet);
 		},"\t(FULLDATA) spents %f second(s).");
-		if (checkSorted(qs1.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(csvDataSet.dataSet)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}
 	if(PTRDATA){
-		QuickSort<SortData<DataSet>> qs2(ptrDataSet);
+		QuickSort<SortData<DataSet>> qs2;
 		CTimer::calc([&](){
-			qs2.Sort();
+			qs2.Sort(ptrDataSet);
 		},"\t(PTRDATA) spents %f second(s).");
-		if (checkSorted(qs2.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(ptrDataSet)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}
 	if(ONLYNUM){
-		QuickSort<long long int> qs3(LLds);
+		QuickSort<long long int> qs3;
 		CTimer::calc([&](){
-			qs3.Sort();
+			qs3.Sort(LLds);
 		},"\t(ONLYNUM) spents %f second(s).");
-		if (checkSorted(qs3.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(LLds)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}
-	
+	return;
 	cout << "QuickSort(MedianOfThree):" << endl;
 	if(FULLDATA){
-		QuickSort<DataSet> qsm1(csvDataSet.dataSet);
+		QuickSort<DataSet> qsm1;
 		CTimer::calc([&](){
-			qsm1.SortWithMedianOfThree();
+			qsm1.SortWithMedianOfThree(csvDataSet.dataSet);
 		},"\t(FULLDATA) spents %f second(s).");
-		if (checkSorted(qsm1.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(csvDataSet.dataSet)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}
 	if(PTRDATA){
-		QuickSort<SortData<DataSet>> qsm2(ptrDataSet);
+		QuickSort<SortData<DataSet>> qsm2;
 		CTimer::calc([&](){
-			qsm2.SortWithMedianOfThree();
+			qsm2.SortWithMedianOfThree(ptrDataSet);
 		},"\t(PTRDATA) spents %f second(s).");
-		if (checkSorted(qsm2.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(ptrDataSet)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}
 	if(ONLYNUM){
-		QuickSort<long long int> qsm3(LLds);
+		QuickSort<long long int> qsm3;
 		CTimer::calc([&](){
-			qsm3.SortWithMedianOfThree();
+			qsm3.SortWithMedianOfThree(LLds);
 		},"\t(ONLYNUM) spents %f second(s).");
-		if (checkSorted(qsm3.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(LLds)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}	
 }

@@ -9,7 +9,7 @@ class CTimer{
 	public:
 		static bool initial;
 		static LARGE_INTEGER startTime, endTime, fre;
-		static double time;
+		static double time;//CTimer::time get time
 		static void init(){
 			if (initial) return;
 			QueryPerformanceFrequency(&CTimer::fre);
@@ -45,12 +45,29 @@ class CTimer{
 			stop_timer();
 			std::cout << getFormat() << std::endl;
 		}
-		static void calc(std::function<void()> func,std::string format){
+		static double calc(std::function<void()> func,std::string format){
 			if (!initial) init();
 			start_timer();
 			func();
 			stop_timer();
 			std::cout << getFormat(format);
+			return time;
+		}
+		static void calc_avg_time(std::function<void()> func,std::string format,int cnt){
+			if (!initial) init();
+			double ctime = 0;
+			for (int i = 0 ; i < cnt ; i++){
+				start_timer();
+				func();
+				stop_timer();
+				ctime += time;
+			}
+			ctime /= cnt;
+			
+			char tmp[100];
+			sprintf(tmp, format.c_str(),(float)ctime);// string format
+			std::string timeformat(tmp);
+			std::cout << timeformat;
 		}
 	
 };

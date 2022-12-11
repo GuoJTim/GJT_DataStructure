@@ -12,10 +12,10 @@ bool ONLYNUM = false;
 #include <ostream>
 using namespace std;
 
-template <typename T>
+template <typename T,typename U = less<T>>
 bool checkSorted(vector<T>& data) {
     for (size_t i = 1; i < data.size(); i++) {
-        if (data[i - 1] > data[i]) {
+        if (U()(data[i],data[i - 1])) {
             return false;
         }
     }
@@ -59,53 +59,53 @@ void solve(string fileName,int sortHeader){
 	
 	cout << "(Recursive)MergeSort:" << endl;
 	if(FULLDATA){
-		MergeSort<DataSet> ms1(csvDataSet.dataSet);
+		MergeSort<DataSet> ms1;
 		CTimer::calc([&](){
-			ms1.Sort();
+			ms1.Sort(csvDataSet.dataSet);
 		},"\t(FULLDATA) spents %f second(s).");
-		if (checkSorted(ms1.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(csvDataSet.dataSet)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}
+	return;
 	if(PTRDATA){
-		MergeSort<SortData<DataSet>> ms2(ptrDataSet);
+		MergeSort<SortData<DataSet>> ms2;
 		CTimer::calc([&](){
-			ms2.Sort();
+			ms2.Sort(ptrDataSet);
 		},"\t(PTRDATA) spents %f second(s).");
-		if (checkSorted(ms2.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(ptrDataSet)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}
 	if(ONLYNUM){
-		MergeSort<long long int> ms3(LLds);
+		MergeSort<long long int> ms3;
 		CTimer::calc([&](){
-			ms3.Sort();
+			ms3.Sort(LLds);
 		},"\t(ONLYNUM) spents %f second(s).");
-		if (checkSorted(ms3.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(LLds)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}	
-	
 	cout << "(Iterative)MergeSort:" << endl;
 	if(FULLDATA){
-		MergeSort<DataSet> msi1(csvDataSet.dataSet);
+		MergeSort<DataSet> msi1;
 		CTimer::calc([&](){
-			msi1.IterativeSort();
+			msi1.IterativeSort(csvDataSet.dataSet);
 		},"\t(FULLDATA) spents %f second(s).");
-		if (checkSorted(msi1.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(csvDataSet.dataSet)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}
 	if(PTRDATA){
-		MergeSort<SortData<DataSet>> msi2(ptrDataSet);
+		MergeSort<SortData<DataSet>> msi2;
 		CTimer::calc([&](){
-			msi2.IterativeSort();
+			msi2.IterativeSort(ptrDataSet);
 		},"\t(PTRDATA) spents %f second(s).");
-		if (checkSorted(msi2.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(ptrDataSet)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}
 	if(ONLYNUM){
-		MergeSort<long long int> msi3(LLds);
+		MergeSort<long long int> msi3;
 		CTimer::calc([&](){
-			msi3.IterativeSort();
+			msi3.IterativeSort(LLds);
 		},"\t(ONLYNUM) spents %f second(s).");
-		if (checkSorted(msi3.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(LLds)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}	
 }

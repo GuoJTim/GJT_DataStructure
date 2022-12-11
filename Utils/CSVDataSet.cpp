@@ -24,6 +24,7 @@ class DataSet{
 			try{
 				val = stoll(obj[index]);
 			}catch(...){
+				val = 0;
 				std::cout << "[error] cannot cast to int: " << obj[index] << std::endl;
 			}
 		}

@@ -5,8 +5,8 @@
 #include "../Utils/CSVDataSet.cpp"
 #include "../Utils/RandomShuffle.h"
 
-//#define FULLDATA
-//#define PTRDATA
+#define FULLDATA
+#define PTRDATA
 #define ONLYNUM
 
 #include <iostream>
@@ -254,11 +254,11 @@ void solve(string fileName,int sortHeader){
 
 int main(){
 	CTimer::init();
-	solve("rooftop-drinking-water-tank-inspection-results.csv",1);
+/*	solve("rooftop-drinking-water-tank-inspection-results.csv",1);
+	cout << endl;cout << endl;*/
+	solve("metadata.csv",0);/*
 	cout << endl;cout << endl;
-	solve("metadata.csv",0);
-	cout << endl;cout << endl;
-	solve("1000000 Sales Records.csv",4);
+	solve("1000000 Sales Records.csv",4);*/
 	cout << endl << endl;
 	return 0;	
 }

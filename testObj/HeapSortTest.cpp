@@ -12,10 +12,10 @@ bool ONLYNUM = false;
 #include <ostream>
 using namespace std;
 
-template <typename T>
+template <typename T,typename U = less<T>>
 bool checkSorted(vector<T>& data) {
     for (size_t i = 1; i < data.size(); i++) {
-        if (data[i - 1] > data[i]) {
+        if (U()(data[i],data[i - 1])) {
             return false;
         }
     }
@@ -59,27 +59,27 @@ void solve(string fileName,int sortHeader){
 	
 	cout << "HeapSort:" << endl;
 	if(FULLDATA){
-		HeapSort<DataSet> hs1(csvDataSet.dataSet);
+		HeapSort<DataSet> hs1;
 		CTimer::calc([&](){
-			hs1.Sort();
+			hs1.Sort(csvDataSet.dataSet);
 		},"\t(FULLDATA) spents %f second(s).");
-		if (checkSorted(hs1.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(csvDataSet.dataSet)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}
 	if(PTRDATA){
-		HeapSort<SortData<DataSet>> hs2(ptrDataSet);
+		HeapSort<SortData<DataSet>> hs2;
 		CTimer::calc([&](){
-			hs2.Sort();
+			hs2.Sort(ptrDataSet);
 		},"\t(PTRDATA) spents %f second(s).");
-		if (checkSorted(hs2.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(ptrDataSet)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;
 	}
 	if(ONLYNUM){
-		HeapSort<long long int> hs3(LLds);
+		HeapSort<long long int> hs3;
 		CTimer::calc([&](){
-			hs3.Sort();
+			hs3.Sort(LLds);
 		},"\t(ONLYNUM) spents %f second(s).");
-		if (checkSorted(hs3.arr)) cout << "\t|Sorted - (O)" << endl;
+		if (checkSorted(LLds)) cout << "\t|Sorted - (O)" << endl;
 		else cout << "\t|Sorted - (X)" << endl;	
 	}	
 }
